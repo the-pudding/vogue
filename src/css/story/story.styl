@@ -5,3 +5,32 @@
   line-height 80px
   padding 4px 8px 3px 0
   font-family $playfair
+
+section
+  margin-top 6.25rem
+
+.divider
+  overflow hidden
+  text-align center
+  font-family $national
+  text-transform uppercase
+  font-size 16px
+  font-weight 700
+  span
+    background-color $off-black
+    color $white
+    padding 5px 10px
+  &:before, &:after
+    background-color $gray
+    content ""
+    display inline-block
+    height 1px
+    position relative
+    vertical-align: middle;
+    width 15rem
+  &:before
+    right 0.5em
+    margin-left -15rem
+  &:after
+    left 0.5em
+    margin-right -15rem
