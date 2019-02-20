@@ -16,4 +16,8 @@
 		</a>
 	</p>
 	<time class='intro__time'>March 2019</time>
+
+	{{#each doc.intro}}
+		<p class='prose'>{{{value}}}</p>
+	{{/each}}
 </div>
