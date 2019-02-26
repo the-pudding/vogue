@@ -6,8 +6,26 @@
   </div>
   <div class='scroll__text'>
     <!-- steps = ".step" -->
-    <div class='step' data-step='1'><div class='step-text-container'>Step 1 text here</div></div>
-    <div class='step' data-step='2'><div class='step-text-container'>Step 2 text here</div></div>
-    <div class='step' data-step='3'><div class='step-text-container'>Step 3 text here</div></div>
+    <div class='step' data-step='1'>
+			<div class='step-text-container'>
+				{{#each doc.beeswarmStep1}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
+		</div>
+		<div class='step' data-step='2'>
+			<div class='step-text-container'>
+				{{#each doc.beeswarmStep2}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
+		</div>
+		<div class='step' data-step='3'>
+			<div class='step-text-container'>
+				{{#each doc.beeswarmStep3}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
+		</div>
   </div>
 </div>
