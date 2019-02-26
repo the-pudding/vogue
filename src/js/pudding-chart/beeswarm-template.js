@@ -7,7 +7,7 @@
  4b. const chart = d3.select('.thing').datum(datum).puddingChartLine();
 */
 
-d3.selection.prototype.puddingChartBeeswarm = function init(options) {
+d3.selection.prototype.beeswarmChart = function init(options) {
 	function createChart(el) {
 		const $sel = d3.select(el);
 		let data = $sel.datum();
@@ -16,17 +16,25 @@ d3.selection.prototype.puddingChartBeeswarm = function init(options) {
 		let height = 0;
 		const marginTop = 0;
 		const marginBottom = 0;
-		const marginLeft = 0;
-		const marginRight = 0;
+		const marginLeft = 16;
+		const marginRight = 16;
+
+		let simulation = null;
+		let axisPadding = null;
+		let radius = 10;
 
 		// scales
-		const scaleX = null;
-		const scaleY = null;
+		let scaleX = null;
+		let scaleY = null;
 
 		// dom elements
 		let $svg = null;
 		let $axis = null;
 		let $vis = null;
+		let $xAxisGroup = null
+		let $xAxis = null;
+		let $cell = null;
+		let $circle = null;
 
 		// helper functions
 
@@ -42,8 +50,15 @@ d3.selection.prototype.puddingChartBeeswarm = function init(options) {
 				// create axis
 				$axis = $svg.append('g').attr('class', 'g-axis');
 
+				// draw axes
+				$xAxisGroup = $axis.append('g')
+					.attr('class', 'x axis')
+					.attr('transform', `translate(${marginLeft},${height})`)
+
 				// setup viz group
 				$vis = $g.append('g').attr('class', 'g-vis');
+
+				$cell = $vis.append('g').attr('class', 'cells');
 
 				Chart.resize();
 				Chart.render();
@@ -53,6 +68,51 @@ d3.selection.prototype.puddingChartBeeswarm = function init(options) {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
+				axisPadding = height;
+
+				// scale
+				scaleX = d3.scaleLinear()
+					.rangeRound([0, width])
+					.domain(d3.extent(data, d => d.l))
+
+				$xAxis = d3
+					.axisBottom(scaleX)
+					.tickPadding(8)
+					.ticks(10);
+
+				$axis.select('.x')
+					.attr('transform', `translate(${marginLeft},${axisPadding})`)
+					.call($xAxis);
+
+				// collision
+				simulation = d3.forceSimulation(data)
+					.force("x", d3.forceX(function(d) { return scaleX(d.l); }).strength(1))
+					.force("y", d3.forceY(height / 2))
+					.force("collide", d3.forceCollide(radius + 1))
+					.stop();
+
+				for (var i = 0; i < 200; ++i) simulation.tick();
+
+				$cell
+					.selectAll('g')
+					.data(d3.voronoi().extent([[-marginLeft, -marginTop], [width + marginRight, height + marginTop]])
+					.x(function(d) { return d.x; })
+	        .y(function(d) { return d.y; })
+	      	.polygons(data)).enter().append('g');
+
+				$circle = $cell.selectAll('g').append('circle')
+					.attr('r', radius)
+					.attr('class', function(d) {
+						let splitz = (d.data.file_name).split('.')[0]
+						return splitz
+					})
+					.style('fill', function(d) { return `${d.data.tone}`; })
+					.attr('cx', function(d) { return d.data.x; })
+					.attr('cy', function(d) { return d.data.y; });
+
+
+
+
 				$svg
 					.attr('width', width + marginLeft + marginRight)
 					.attr('height', height + marginTop + marginBottom);
