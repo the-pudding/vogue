@@ -8,9 +8,11 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "intersection-observer": "^0.5.1",
     "lodash.debounce": "^4.0.8",
     "nouislider": "^12.1.0",
     "promise-polyfill": "^8.1.0",
+    "scrollama": "^1.4.4",
     "superagent": "^4.1.0",
     "whatwg-fetch": "3.0.0"
   },

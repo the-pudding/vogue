@@ -1,3 +1,42 @@
+.scroll
+	position relative
+	border-top 1px dashed #000
+	border-bottom 1px dashed #000
+
+
 .scroll__graphic
+	position sticky
 	width 100%
 	height 500px
+	top 0
+	left 0
+	bottom auto
+	background-color #fff
+	transform translate3d(0, 0, 0)
+
+.scroll__text
+	position relative
+	padding 0 1rem
+	margin 0 auto
+	max-width 30rem
+	width 33%
+
+.step
+	margin 2rem auto
+	opacity 0.2
+
+.step-text-container
+	background-color $white
+	border 1px solid $gray-light
+	box-shadow 0rem 1rem 2rem rgba($gray-light, 0.3)
+	padding 1rem
+
+
+.step.is-active
+	opacity 1
+
+
+.step p
+	text-align center
+	padding 1rem
+	font-size 1.5rem
