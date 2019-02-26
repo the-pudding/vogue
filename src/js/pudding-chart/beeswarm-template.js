@@ -35,6 +35,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let $xAxis = null;
 		let $cell = null;
 		let $circle = null;
+		let $faces = null;
 
 		// helper functions
 
@@ -109,6 +110,27 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.style('fill', function(d) { return `${d.data.tone}`; })
 					.attr('cx', function(d) { return d.data.x; })
 					.attr('cy', function(d) { return d.data.y; });
+
+				$cell.selectAll('g').append('clipPath')
+					.attr('id', function(d) {
+						let splitz = (d.data.file_name).split('.')[0]
+						return `${splitz}-clipCircle`
+					})
+					.append("circle")
+			    .attr("r", radius)
+					.attr('cx', function(d) { return d.data.x; })
+					.attr('cy', function(d) { return d.data.y; });
+
+				$faces = $cell.selectAll('g').append('svg:image')
+					.attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
+					.attr('x', function(d) { return d.data.x - radius;})
+	        .attr('y', function(d) { return d.data.y - radius;})
+	        .attr('height', radius*2)
+	        .attr('width', radius*2)
+					.attr('clip-path', function(d) {
+						let splitz = (d.data.file_name).split('.')[0]
+						return `url(#${splitz}-clipCircle)`
+					})
 
 
 
