@@ -2,8 +2,11 @@
 import './pudding-chart/beeswarm-template';
 import 'intersection-observer';
 import scrollama from 'scrollama';
+const _ = require('lodash');
+
 const dataFile = 'assets/data/faces.csv';
 let data = null;
+let modelData = [];
 
 const beeswarmScroller = scrollama();
 
@@ -12,6 +15,8 @@ const $scrollContainer = d3.select('.scroll')
 const $beeswarmChart = $scrollContainer.select('.scroll__graphic')
 const $scrollText = $scrollContainer.select('.scroll__text')
 const $step = $scrollText.selectAll('.step')
+const $modelDropdown = d3.select('#model-dropdown')
+const $switch = $scrollContainer.select('.switch')
 
 function loadFaces(){
 	return new Promise((resolve, reject) => {
@@ -44,6 +49,44 @@ function setupScroll() {
 		.onStepEnter(handleStepEnter);
 }
 
+function setupDropdown() {
+	const uniqModels = _.uniqBy(data, 'model')
+	modelData.push(uniqModels.map(function(obj) { return obj.model; }).sort())
+	modelData[0].unshift('Pick a model')
+
+	$modelDropdown.selectAll('option')
+    .data(modelData[0])
+    .enter()
+    .append('option')
+    .text(d => d)
+    .attr('value', d => d)
+}
+
+// TODO reverse
+function handleToggle() {
+	const $modelImgs = d3.selectAll('.model-img')
+	const $modelCircles = d3.selectAll('.model-circle')
+
+	$switch.on('click', () => {
+		const faces = $switch.classed('is-faces')
+		$switch.classed('is-faces', !faces);
+		$modelImgs.classed('is-visible', true);
+		$modelCircles.classed('is-visible', false);
+	});
+}
+
+function handleDropdown() {
+	const value = this.options[this.selectedIndex].text;
+	const combinedName = value.replace(' ', '-')
+
+	// clear selections
+	d3.selectAll(`.model-circle`).classed('highlight', false)
+	d3.selectAll(`.model-img`).classed('highlight', false)
+
+	d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+	d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+}
+
 function resize() {
 	// 1. update height of step elements
 	const stepHeight = Math.floor(window.innerHeight * 0.75);
@@ -72,6 +115,11 @@ function init() {
 				resize()
         setupChart()
 				setupScroll()
+				setupDropdown()
+				handleToggle()
+
+				$modelDropdown.on('change', handleDropdown)
+
         resolve()
       })
   })

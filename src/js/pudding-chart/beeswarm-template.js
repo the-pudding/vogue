@@ -15,7 +15,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let width = 0;
 		let height = 0;
 		const marginTop = 0;
-		const marginBottom = 0;
+		const marginBottom = 16;
 		const marginLeft = 16;
 		const marginRight = 16;
 
@@ -36,6 +36,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let $cell = null;
 		let $circle = null;
 		let $faces = null;
+		let $darkerLabel = null;
+		let $lighterLabel = null;
 
 		// helper functions
 
@@ -43,10 +45,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			// called once at start
 			init() {
 				$svg = $sel.append('svg').attr('class', 'pudding-chart');
-				const $g = $svg.append('g');
-
-				// offset chart for margins
-				$g.attr('transform', `translate(${marginLeft}, ${marginTop})`);
 
 				// create axis
 				$axis = $svg.append('g').attr('class', 'g-axis');
@@ -55,6 +53,14 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$xAxisGroup = $axis.append('g')
 					.attr('class', 'x axis')
 					.attr('transform', `translate(${marginLeft},${height})`)
+
+				$darkerLabel = $xAxisGroup.append('text').text('Darker tones').attr('class','darker label')
+				$lighterLabel = $xAxisGroup.append('text').text('Lighter tones').attr('class','lighter label')
+
+				const $g = $svg.append('g');
+
+				// offset chart for margins
+				$g.attr('transform', `translate(${marginLeft}, ${marginTop})`);
 
 				// setup viz group
 				$vis = $g.append('g').attr('class', 'g-vis');
@@ -69,7 +75,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
-				axisPadding = height;
+				axisPadding = height/2;
 
 				// scale
 				scaleX = d3.scaleLinear()
@@ -84,6 +90,17 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$axis.select('.x')
 					.attr('transform', `translate(${marginLeft},${axisPadding})`)
 					.call($xAxis);
+
+				$darkerLabel.attr('transform', `translate(7,${axisPadding/2})`)
+				$lighterLabel.attr('transform', `translate(${width - 7},${axisPadding/2})`)
+
+				$xAxisGroup.append('path')
+					.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
+					.attr('transform', `translate(0,${(axisPadding/2) - 4}) rotate(-90)`);
+
+					$xAxisGroup.append('path')
+						.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
+						.attr('transform', `translate(${width},${(axisPadding/2) - 4}) rotate(90)`);
 
 				// collision
 				simulation = d3.forceSimulation(data)
@@ -103,9 +120,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 				$circle = $cell.selectAll('g').append('circle')
 					.attr('r', radius)
-					.attr('class', function(d) {
+					.attr('id', function(d) {
 						let splitz = (d.data.file_name).split('.')[0]
-						return splitz
+						return `circle-id circle-id-${splitz}`
+					})
+					.attr('class', function(d) {
+						let combinedName = (d.data.model).replace(' ', '-')
+						return `model-circle model-circle-${combinedName} is-visible`
 					})
 					.style('fill', function(d) { return `${d.data.tone}`; })
 					.attr('cx', function(d) { return d.data.x; })
@@ -119,7 +140,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.append("circle")
 			    .attr("r", radius)
 					.attr('cx', function(d) { return d.data.x; })
-					.attr('cy', function(d) { return d.data.y; });
+					.attr('cy', function(d) { return d.data.y; })
 
 				$faces = $cell.selectAll('g').append('svg:image')
 					.attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
@@ -127,13 +148,18 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 	        .attr('y', function(d) { return d.data.y - radius;})
 	        .attr('height', radius*2)
 	        .attr('width', radius*2)
+					.attr('id', function(d) {
+						let splitz = (d.data.file_name).split('.')[0]
+						return `img-id img-id-${splitz}`
+					})
+					.attr('class', function(d) {
+						let combinedName = (d.data.model).replace(' ', '-')
+						return `model-img model-img-${combinedName}`
+					})
 					.attr('clip-path', function(d) {
 						let splitz = (d.data.file_name).split('.')[0]
 						return `url(#${splitz}-clipCircle)`
 					})
-
-
-
 
 				$svg
 					.attr('width', width + marginLeft + marginRight)
