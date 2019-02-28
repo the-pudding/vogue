@@ -1,48 +1,62 @@
+<section class='skintones'>
+  <h3 class='divider'><span>{{doc.tonesHed}}</span></h3>
+
+  {{#each doc.tonesIntro}}
+    <p class='prose'>{{{value}}}</p>
+  {{/each}}
+</section>
 <!-- container = ".scroll" -->
 <div class='scroll'>
   <!-- graphic = ".scroll__graphic" -->
   <div class='scroll__graphic'>
-		<div class='scroll__controls'>
-			<div class='model-search'>
-				<p>Search</p>
-				<select id='model-dropdown'>
-					<option selected disabled>Pick a model</option>
-				</select>
-			</div>
-			<div class='img-toggle'>
-				<p>Show</p>
-				<p class='toggle-labels'>Skin tones</p>
-				<label class="switch">
-				  <input type="checkbox">
-				  <span class="slider round"></span>
-				</label>
-				<p class='toggle-labels'>Model faces</p>
-			</div>
-		</div>
+    <div class='scroll__controls'>
+      <div class='model-search'>
+        <p>Search</p>
+        <select id='model-dropdown'>
+          <option selected disabled>Pick a model</option>
+        </select>
+      </div>
+      <div class='img-toggle'>
+        <p>Show</p>
+        <p class='toggle-labels'>Skin tones</p>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <p class='toggle-labels'>Model faces</p>
+      </div>
+    </div>
     <!--graphic / chart code here-->
   </div>
   <div class='scroll__text'>
     <!-- steps = ".step" -->
     <div class='step' data-step='1'>
-			<div class='step-text-container'>
-				{{#each doc.beeswarmStep1}}
-				<p>{{{value}}}</p>
-				{{/each}}
-			</div>
-		</div>
-		<div class='step' data-step='2'>
-			<div class='step-text-container'>
-				{{#each doc.beeswarmStep2}}
-				<p>{{{value}}}</p>
-				{{/each}}
-			</div>
-		</div>
-		<div class='step' data-step='3'>
-			<div class='step-text-container'>
-				{{#each doc.beeswarmStep3}}
-				<p>{{{value}}}</p>
-				{{/each}}
-			</div>
-		</div>
+      <div class='step-text-container'>
+        {{#each doc.beeswarmStep1}}
+        <p>{{{value}}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <div class='step' data-step='2'>
+      <div class='step-text-container'>
+        {{#each doc.beeswarmStep2}}
+        <p>{{{value}}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <div class='step' data-step='3'>
+      <div class='step-text-container'>
+        {{#each doc.beeswarmStep3}}
+        <p>{{{value}}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <div class='step' data-step='4'>
+      <div class='step-text-container'>
+        {{#each doc.beeswarmStep4}}
+        <p>{{{value}}}</p>
+        {{/each}}
+      </div>
+    </div>
   </div>
 </div>

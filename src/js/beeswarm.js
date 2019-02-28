@@ -7,6 +7,7 @@ const _ = require('lodash');
 const dataFile = 'assets/data/faces.csv';
 let data = null;
 let modelData = [];
+let chart = null;
 
 const beeswarmScroller = scrollama();
 
@@ -30,7 +31,7 @@ function loadFaces(){
 }
 
 function setupChart() {
-	const chart = $beeswarmChart
+	chart = $beeswarmChart
 		.datum(data)
 		.beeswarmChart()
 }
@@ -38,6 +39,23 @@ function setupChart() {
 function handleStepEnter(response) {
 	// response = { element, direction, index }
 	$step.classed('is-active', (d, i) => i === response.index);
+
+	renderStep(response.index);
+}
+
+function renderStep(index) {
+	if (index === 0) {
+		d3.selectAll('.model-circle').classed('highlight', false)
+	}
+	if (index === 1) {
+		chart.highlightDarkTones();
+	}
+	if (index === 2) {
+		chart.highlightLightTones();
+	}
+	if (index === 3) {
+		chart.scatterTransition();
+	}
 }
 
 function setupScroll() {
