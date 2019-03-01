@@ -9,6 +9,8 @@ let data = null;
 let modelData = [];
 let chart = null;
 
+const parseDate = d3.timeParse("%Y-%m-%d");
+
 const beeswarmScroller = scrollama();
 
 // selections
@@ -19,11 +21,21 @@ const $step = $scrollText.selectAll('.step')
 const $modelDropdown = d3.select('#model-dropdown')
 const $switch = $scrollContainer.select('.switch')
 
+function cleanFaces(arr){
+	return arr.map((d, i) => {
+		return {
+			...d,
+			date: parseDate(d.date)
+		}
+	})
+
+}
+
 function loadFaces(){
 	return new Promise((resolve, reject) => {
     d3.csv(dataFile)
       .then(response => {
-          data = response
+          data = cleanFaces(response)
           resolve(data)
         })
       .catch(error => console.log("error loading data"))

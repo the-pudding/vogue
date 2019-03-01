@@ -22,7 +22,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let simulation = null;
 		let axisPadding = null;
 		let radius = 10;
-		const parseDate = d3.timeFormat("%Y-%m-%d");
+		const parseDate = d3.timeParse("%Y-%m-%d");
 
 		// scales
 		let scaleX = null;
@@ -103,7 +103,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				// scaleY
 				scaleY = d3.scaleTime()
 					.rangeRound([0, height])
-					.domain(d3.extent(data, d => parseDate(d.date)))
+					.domain(d3.extent(data, d => d.date))
+
+				console.log(scaleY("2017-01-04"))
 
 				$yAxis = d3
 					.axisLeft(scaleY)
@@ -215,9 +217,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				console.log('step4')
 				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
 				//TO DO figure out how to parse the date
-				$circle.attr('cy', function(d) { return d.data.date; }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return d.data.date; }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return d.data.date - radius;}).transition(5000).ease(d3.easeLinear);
+				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(5000).ease(d3.easeLinear);
 				return Chart
 			},
 			// update scales and render chart
