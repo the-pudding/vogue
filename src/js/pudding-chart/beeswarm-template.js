@@ -200,9 +200,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.selectAll('.model-img-Serena-Williams').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.selectAll('.model-img-Michelle-Obama').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(5000).ease(d3.easeLinear);
+				$circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(2000).ease(d3.easeLinear);
 				return Chart;
 			},
 			highlightLightTones() {
@@ -212,23 +212,46 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.selectAll('.model-img-Jessica-Chastain').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.selectAll('.model-img-Amy-Adams').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.selectAll('.model-img-Lady-Gaga').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(5000).ease(d3.easeLinear);
+				$circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(2000).ease(d3.easeLinear);
 				return Chart;
 			},
 			// scatterTransition
 			scatterTransition(){
 				console.log('step5')
-				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
 				d3.selectAll('.model-img').classed('faded', false).transition(500).ease(d3.easeLinear);
+				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(2000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(2000).ease(d3.easeLinear);
+				return Chart
+			},
+			highlightYears(){
+				console.log('step6')
+				return Chart
+			},
+			highlightBlackWomen(){
+				console.log('step7')
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
+				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.select('#img-id-195_05_2005_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
 				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
 				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(5000).ease(d3.easeLinear);
 				return Chart
 			},
-			highlightBlackWomen(){
-				console.log('step7')
+			lightingExplainer(){
+				console.log('step8')
+				return Chart
+			},
+			highlightLupita(){
+				console.log('step9')
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				return Chart
 			},
 			// update scales and render chart

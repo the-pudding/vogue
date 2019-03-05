@@ -71,6 +71,18 @@ function renderStep(index) {
 	if (index === 4) {
 		chart.scatterTransition();
 	}
+	if (index === 5) {
+		chart.highlightYears();
+	}
+	if (index === 6) {
+		chart.highlightBlackWomen();
+	}
+	if (index === 7) {
+		chart.lightingExplainer();
+	}
+	if (index === 8) {
+		chart.highlightLupita();
+	}
 }
 
 function setupScroll() {
