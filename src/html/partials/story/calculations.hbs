@@ -4,4 +4,28 @@
   {{#each doc.calculationIntro}}
     <p class='prose'>{{{value}}}</p>
   {{/each}}
+
+  <div class='calculations__scroll'>
+    <figure class='calculations__container'>
+      <img src='assets/images/covers500/202_06_2012.jpg' class='calculations__container-cover'>
+
+      <div class='calculations__container-faces'>
+        <div class='face-0'>
+          <img src='assets/images/faces200/202_06_2012_0.jpg'>
+        </div>
+        <div class='face-1'>
+          <img src='assets/images/faces200/202_06_2012_1.jpg'>
+        </div>
+      </div>
+    </figure>
+
+    <div class='scroll-text'>
+      {{#each doc.calcSteps}}
+        <div class='step' data-step='{{{step}}}' id='step-{{{step}}}'>
+          <p class='step-prose'>{{{text}}}</p>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  
 </section>
