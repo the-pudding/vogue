@@ -214,7 +214,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			// scatterTransition
 			scatterTransition(){
-				console.log('step4')
+				console.log({data})
 				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
 				//TO DO figure out how to parse the date
 				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);

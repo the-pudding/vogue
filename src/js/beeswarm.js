@@ -9,7 +9,7 @@ let data = null;
 let modelData = [];
 let chart = null;
 
-const parseDate = d3.timeParse("%Y-%m-%d");
+const parseDate = d3.timeParse("%m/%d/%Y");
 
 const beeswarmScroller = scrollama();
 
