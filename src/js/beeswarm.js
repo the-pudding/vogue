@@ -19,7 +19,7 @@ const $beeswarmChart = $scrollContainer.select('.scroll__graphic')
 const $scrollText = $scrollContainer.select('.scroll__text')
 const $step = $scrollText.selectAll('.step')
 const $modelDropdown = d3.select('#model-dropdown')
-const $switch = $scrollContainer.select('.switch')
+const $switch = $scrollContainer.select('.switch input')
 
 function cleanFaces(arr){
 	return arr.map((d, i) => {
@@ -97,12 +97,10 @@ function handleToggle() {
 	const $modelImgs = d3.selectAll('.model-img')
 	const $modelCircles = d3.selectAll('.model-circle')
 
-	$switch.on('click', () => {
-		const faces = $switch.classed('is-faces')
-		$switch.classed('is-faces', !faces);
-		$modelImgs.classed('is-visible', true);
-		$modelCircles.classed('is-visible', false);
-	});
+	const faces = $switch.classed('is-faces')
+	$switch.classed('is-faces', !faces);
+	$modelImgs.classed('is-visible', !faces);
+	$modelCircles.classed('is-visible', faces);
 }
 
 function handleDropdown() {
@@ -146,9 +144,9 @@ function init() {
         setupChart()
 				setupScroll()
 				setupDropdown()
-				handleToggle()
 
 				$modelDropdown.on('change', handleDropdown)
+				$switch.on('click', handleToggle)
 
         resolve()
       })
