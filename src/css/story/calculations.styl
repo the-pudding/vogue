@@ -1,14 +1,22 @@
 .calculations
+  max-width $column-width
+  margin 0 auto
   &__scroll
     position relative
   &__container
-    max-width $column-width
-    margin 0 auto
-    position: -webkit-sticky;
-    position: sticky;
+    position -webkit-sticky
+    position sticky
+    top 25%
+    bottom auto
+    transform translate3d(0, 0, 0)
     &-cover
       max-width 250px
       margin 0 auto
+      opacity 0
+      transition 300ms ease-in-out
+      &.is-visible
+        opacity 1
+        transition 300ms ease-in-out
     &-faces
       position absolute
       top 3rem
@@ -21,9 +29,76 @@
       justify-content: space-around;
       img
         max-width 200px
+      .face-0, .face-1
+        position relative
+        width 200px
+        height 200px
+        background-color transparent
+      .face-full
+        position absolute
+        transition 300ms ease-in-out
+        opacity 0
+        &.on-cover
+          transform translate(0, -100px) scale(0.5)
+          opacity 0
+          transition transform 0.3s ease-in-out, opacity 0.3s ease-in-out
+        &.is-visible
+          transform translate(0, 0) scale(1)
+          opacity 1
+          transition transform 0.3s ease-in-out, opacity 0.3s ease-in-out
+      .face-crop, .face-skin
+        position absolute
+        opacity 0
+        transition 300ms ease-in-out
+        &.is-visible
+          opacity 1
+
+      .face-0.filled
+        background-color #C89A7E
+        transition 300ms ease-in-out
+      .face-1.filled
+        background-color #9A5A48
+        transition 300ms ease-in-out
+
+      .face-0.lightness
+        background-color #A3A3A3
+        transition 300ms ease-in-out
+      .face-1.lightness
+        background-color #717171
+        transition 300ms ease-in-out
+
+
+
 
   .scroll-text
     position relative
     max-width 30rem
     margin 0 auto
     padding 1rem
+
+    .step
+    	margin 2rem auto
+    	opacity 0.2
+
+      &.is-active
+        opacity 1
+
+    .step-text-container
+    	background-color $white
+    	border 1px solid $gray-light
+    	box-shadow 0rem 1rem 2rem rgba($gray-light, 0.3)
+    	padding 2rem 1rem
+
+    	.step-prose
+    		text-align center
+    		font-size 1rem
+    		margin 0
+
+      .notSkin
+        background-color #C1EEFD
+        padding 0.05rem 0.25rem
+        border-radius 5px
+
+      .methodsCall
+        set-type-size('small')
+        color $gray-dark
