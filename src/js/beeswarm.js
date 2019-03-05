@@ -57,15 +57,18 @@ function handleStepEnter(response) {
 
 function renderStep(index) {
 	if (index === 0) {
-		d3.selectAll('.model-circle').classed('highlight', false)
+		d3.selectAll('.model-img').classed('is-visible', false)
 	}
 	if (index === 1) {
-		chart.highlightDarkTones();
+		handleToggle()
 	}
 	if (index === 2) {
-		chart.highlightLightTones();
+		chart.highlightDarkTones();
 	}
 	if (index === 3) {
+		chart.highlightLightTones();
+	}
+	if (index === 4) {
 		chart.scatterTransition();
 	}
 }

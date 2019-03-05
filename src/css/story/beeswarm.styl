@@ -14,7 +14,7 @@
 
 	.scroll__controls
 		width 100%
-		padding 0 1rem
+		padding 1rem 0
 		display flex
 		justify-content space-between
 		flex-direction row
@@ -121,6 +121,10 @@
 	transition 300ms ease-in-out
 	&.is-visible
 		opacity 1
+	&.faded
+		opacity 0.3
+	&.highlight
+		opacity 1
 
 .model-circle
 	opacity 0
@@ -159,3 +163,10 @@
 .y.axis
 	.domain
 		display none
+	.tick
+		line
+			display none
+		text
+			fill $gray
+			font-family $national
+			set-type-size('x-small')

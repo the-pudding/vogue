@@ -16,7 +16,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let height = 0;
 		const marginTop = 16;
 		const marginBottom = 16;
-		const marginLeft = 16;
+		const marginLeft = 32;
 		const marginRight = 16;
 
 		let simulation = null;
@@ -57,7 +57,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				// draw axes
 				$xAxisGroup = $axis.append('g')
 					.attr('class', 'x axis')
-					.attr('transform', `translate(${marginLeft},${height})`)
+					.attr('transform', `translate(${marginRight},${height})`)
 
 				$darkerLabel = $xAxisGroup.append('text').text('Darker tones').attr('class','darker label')
 				$lighterLabel = $xAxisGroup.append('text').text('Lighter tones').attr('class','lighter label')
@@ -69,7 +69,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				const $g = $svg.append('g');
 
 				// offset chart for margins
-				$g.attr('transform', `translate(${marginLeft}, ${marginTop})`);
+				$g.attr('transform', `translate(${marginRight}, ${marginTop})`);
 
 				// setup viz group
 				$vis = $g.append('g').attr('class', 'g-vis');
@@ -83,6 +83,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			resize() {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
+				console.log(width)
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
 				axisPadding = height/2;
 
@@ -97,7 +98,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.ticks(10);
 
 				$axis.select('.x')
-					.attr('transform', `translate(${marginLeft},${axisPadding})`)
+					.attr('transform', `translate(${marginRight},${axisPadding + marginTop})`)
 					.call($xAxis);
 
 				// scaleY
@@ -113,7 +114,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.ticks(10);
 
 				$axis.select('.y')
-					.attr('transform', `translate(${marginLeft},${marginTop})`)
+					.attr('transform', `translate(${marginLeft + (marginRight/2)},${marginTop})`)
 					.call($yAxis);
 
 				$darkerLabel.attr('transform', `translate(7,${axisPadding/2})`)
@@ -187,39 +188,47 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					})
 
 				$svg
-					.attr('width', width + marginLeft + marginRight)
+					.attr('width', width + marginRight)
 					.attr('height', height + marginTop + marginBottom);
 				return Chart;
 			},
 			// highlight tones
 			highlightDarkTones() {
-				console.log('step2')
-				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-circle-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-circle-Serena-Williams').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-circle-Michelle-Obama').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				console.log('step3')
+				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Serena-Williams').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Michelle-Obama').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				$circle.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
 				$clip.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
 				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(5000).ease(d3.easeLinear);
+				return Chart;
 			},
 			highlightLightTones() {
-				console.log('step3')
-				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-circle-Jessica-Chastain').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-circle-Amy-Adams').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-circle-Lady-Gaga').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				console.log('step4')
+				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Jessica-Chastain').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Amy-Adams').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Lady-Gaga').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				$circle.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
 				$clip.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
 				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(5000).ease(d3.easeLinear);
+				return Chart;
 			},
 			// scatterTransition
 			scatterTransition(){
-				console.log({data})
+				console.log('step5')
 				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				//TO DO figure out how to parse the date
+				d3.selectAll('.model-img').classed('faded', false).transition(500).ease(d3.easeLinear);
 				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
 				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
 				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(5000).ease(d3.easeLinear);
+				return Chart
+			},
+			highlightBlackWomen(){
+				console.log('step7')
 				return Chart
 			},
 			// update scales and render chart
