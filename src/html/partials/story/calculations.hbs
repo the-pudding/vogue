@@ -11,10 +11,14 @@
 
       <div class='calculations__container-faces'>
         <div class='face-0'>
-          <img src='assets/images/faces200/202_06_2012_0.jpg'>
+          <img class='face-full face-0-full' src='assets/images/faces200/202_06_2012_0.jpg'>
+          <img class='face-crop face-0-crop' src='assets/images/calculations/0face.png'>
+          <img class='face-skin face-0-skin' src='assets/images/calculations/0skin.jpg'>
         </div>
         <div class='face-1'>
-          <img src='assets/images/faces200/202_06_2012_1.jpg'>
+          <img class='face-full face-1-full' src='assets/images/faces200/202_06_2012_1.jpg'>
+          <img class='face-crop face-1-crop' src='assets/images/calculations/1face.png'>
+          <img class='face-skin face-1-skin' src='assets/images/calculations/1skin.jpg'>
         </div>
       </div>
     </figure>
@@ -22,10 +26,12 @@
     <div class='scroll-text'>
       {{#each doc.calcSteps}}
         <div class='step' data-step='{{{step}}}' id='step-{{{step}}}'>
-          <p class='step-prose'>{{{text}}}</p>
+          <div class='step-text-container'>
+            <p class='step-prose'>{{{text}}}</p>
+          </div>
         </div>
       {{/each}}
     </div>
   </div>
-  
+
 </section>
