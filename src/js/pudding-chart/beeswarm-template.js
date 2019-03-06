@@ -39,6 +39,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let $yAxisGroup = null
 		let $yAxis = null;
 		let $cell = null;
+		let $pod = null;
 		let $circle = null;
 		let $clip = null;
 		let $faces = null;
@@ -149,14 +150,16 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 				for (var i = 0; i < 200; ++i) simulation.tick();
 
-				$cell
+				$pod = $cell
 					.selectAll('g')
 					.data(d3.voronoi().extent([[-marginLeft, -marginTop], [width + marginRight, height + marginTop]])
 					.x(function(d) { return d.x; })
 	        .y(function(d) { return d.y; })
-	      	.polygons(data)).enter().append('g');
+	      	.polygons(data)).enter().append('g')
+					.attr('class', 'g-pods')
+					.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`)
 
-				$circle = $cell.selectAll('g').append('circle')
+				$circle = $pod.append('circle')
 					.attr('r', radius)
 					.attr('id', function(d) {
 						let splitz = (d.data.file_name).split('.')[0]
@@ -167,23 +170,23 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 						return `model-circle model-circle-${combinedName} is-visible`
 					})
 					.style('fill', function(d) { return `${d.data.tone}`; })
-					.attr('cx', function(d) { return d.data.x; })
-					.attr('cy', function(d) { return d.data.y; });
+					// .attr('cx', function(d) { return d.data.x; })
+					// .attr('cy', function(d) { return d.data.y; });
 
-				$clip = $cell.selectAll('g').append('clipPath')
+				$clip = $pod.append('clipPath')
 					.attr('id', function(d) {
 						let splitz = (d.data.file_name).split('.')[0]
 						return `${splitz}-clipCircle`
 					})
 					.append("circle")
 			    .attr("r", radius)
-					.attr('cx', function(d) { return d.data.x; })
-					.attr('cy', function(d) { return d.data.y; })
+					// .attr('cx', function(d) { return d.data.x; })
+					// .attr('cy', function(d) { return d.data.y; })
 
-				$faces = $cell.selectAll('g').append('svg:image')
+				$faces = $pod.append('svg:image')
 					.attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
-					.attr('x', function(d) { return d.data.x - radius;})
-	        .attr('y', function(d) { return d.data.y - radius;})
+					.attr('x', function(d) { return - radius;})
+	        .attr('y', function(d) { return - radius;})
 	        .attr('height', radius*2)
 	        .attr('width', radius*2)
 					.attr('id', function(d) {
@@ -214,9 +217,11 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				// d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).delay(1000);
 				// d3.selectAll('.model-img-Anne-Hathaway').classed('highlight', true).transition(500).delay(1000);
-				$circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(2000).ease(d3.easeLinear);
+				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
+
+				// $circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				// $clip.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				// $faces.attr('y', function(d) { return d.data.y - radius;}).transition(2000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 0);
 				return Chart;
 			},
@@ -225,9 +230,14 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				console.log('step3')
 				d3.selectAll('.model-img').classed('highlight', false).transition(500);
 				d3.selectAll('.model-img').classed('faded', false).transition(500);
-				$circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(2000);
-				$clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(2000);
-				$faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(2000);
+				$pod
+					.transition(5000)
+					.delay((d, i) => i * 50)
+					.ease(d3.easeLinear)
+					.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`)
+				// $circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(2000);
+				// $clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(2000);
+				// $faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(2000);
 				$yearRect.style('opacity', 0);
 				return Chart
 			},
@@ -244,9 +254,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.select('#img-id-195_05_2005_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(5000).ease(d3.easeLinear);
+				$pod.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`).transition(2000).ease(d3.easeLinear);
+				// $circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
+				// $clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
+				// $faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(5000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 1);
 				return Chart
 			},
