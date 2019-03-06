@@ -61,15 +61,20 @@ function renderStep(index) {
 	}
 	if (index === 1) {
 		handleToggle()
+		chart.highlightInitTones();
 	}
 	if (index === 2) {
-		chart.highlightDarkTones();
+		chart.scatterTransition();
 	}
 	if (index === 3) {
-		chart.highlightLightTones();
+		chart.highlightYears();
+		chart.highlightBlackWomen();
 	}
 	if (index === 4) {
-		chart.scatterTransition();
+
+	}
+	if (index === 5) {
+		chart.highlightLupita();
 	}
 }
 

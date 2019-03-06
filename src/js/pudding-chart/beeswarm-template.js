@@ -42,6 +42,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let $faces = null;
 		let $darkerLabel = null;
 		let $lighterLabel = null;
+		let $yearRect = null;
 
 
 		// helper functions
@@ -66,6 +67,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('class', 'y axis')
 					.attr('transform', `translate(${marginLeft},${height})`)
 
+				$yearRect = $yAxisGroup.append('rect').attr('class','year-rect')
+
 				const $g = $svg.append('g');
 
 				// offset chart for margins
@@ -83,7 +86,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			resize() {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
-				console.log(width)
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
 				axisPadding = height/2;
 
@@ -106,8 +108,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.rangeRound([0, height])
 					.domain(d3.extent(data, d => d.date))
 
-				console.log(scaleY("2017-01-04"))
-
 				$yAxis = d3
 					.axisLeft(scaleY)
 					.tickPadding(8)
@@ -116,6 +116,12 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$axis.select('.y')
 					.attr('transform', `translate(${marginLeft + (marginRight/2)},${marginTop})`)
 					.call($yAxis);
+
+				$yearRect
+					.attr("x", 0)
+					.attr("y", 0)
+					.attr("width", width)
+					.attr("height", height)
 
 				$darkerLabel.attr('transform', `translate(7,${axisPadding/2})`)
 				$lighterLabel.attr('transform', `translate(${width - 7},${axisPadding/2})`)
@@ -193,42 +199,57 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart;
 			},
 			// highlight tones
-			highlightDarkTones() {
-				console.log('step3')
-				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Serena-Williams').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Michelle-Obama').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(5000).ease(d3.easeLinear);
-				return Chart;
-			},
-			highlightLightTones() {
-				console.log('step4')
-				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Jessica-Chastain').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Amy-Adams').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Lady-Gaga').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return d.data.y; }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(5000).ease(d3.easeLinear);
+			highlightInitTones() {
+				console.log('step2B')
+				d3.selectAll('.model-img').classed('faded', true).transition(500);
+				d3.selectAll('.model-img').classed('highlight', false).transition(500);
+				//ID SELECTION NOT WORKING
+				//d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				//d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).delay(1000);
+				d3.selectAll('.model-img-Anne-Hathaway').classed('highlight', true).transition(500).delay(1000);
+				$circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(2000).ease(d3.easeLinear);
+				$yearRect.style('opacity', 0);
 				return Chart;
 			},
 			// scatterTransition
 			scatterTransition(){
-				console.log('step5')
-				d3.selectAll('.model-circle').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img').classed('faded', false).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(5000).ease(d3.easeLinear);
+				console.log('step3')
+				d3.selectAll('.model-img').classed('highlight', false).transition(500);
+				d3.selectAll('.model-img').classed('faded', false).transition(500);
+				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(2000);
+				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000);
+				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(2000);
+				$yearRect.style('opacity', 0);
+				return Chart
+			},
+			highlightYears(){
+				console.log('step4A')
+				$yearRect.style('opacity', 1);
 				return Chart
 			},
 			highlightBlackWomen(){
-				console.log('step7')
+				console.log('step4B')
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
+				//ID SELECTION NOT WORKING
+				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.select('#img-id-195_05_2005_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(5000).ease(d3.easeLinear);
+				$yearRect.style('opacity', 0);
+				return Chart
+			},
+			highlightLupita(){
+				console.log('step6')
+				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				$yearRect.style('opacity', 0);
 				return Chart
 			},
 			// update scales and render chart
