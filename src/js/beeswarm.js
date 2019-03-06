@@ -10,6 +10,7 @@ let modelData = [];
 let chart = null;
 
 const parseDate = d3.timeParse("%m/%d/%Y");
+const formatDate = d3.timeFormat("%Y")
 
 const beeswarmScroller = scrollama();
 
@@ -25,7 +26,8 @@ function cleanFaces(arr){
 	return arr.map((d, i) => {
 		return {
 			...d,
-			date: parseDate(d.date)
+			date: parseDate(d.date),
+			year: formatDate(parseDate(d.date))
 		}
 	})
 
@@ -131,9 +133,9 @@ function resize() {
 	// 2. update width/height of graphic element
 	const bodyWidth = d3.select('body').node().offsetWidth;
 
-	$beeswarmChart
-		.style('width', bodyWidth + 'px')
-		.style('height', window.innerHeight + 'px');
+	// $beeswarmChart
+	// 	.style('width', bodyWidth + 'px')
+	// 	.style('height', window.innerHeight + 'px');
 
 	const chartMargin = 32;
 	const textWidth = $scrollText.node().offsetWidth;

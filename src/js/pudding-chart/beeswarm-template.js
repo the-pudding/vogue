@@ -18,11 +18,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		const marginBottom = 16;
 		const marginLeft = 32;
 		const marginRight = 16;
+		const padding = 16;
 
 		let simulation = null;
 		let axisPadding = null;
 		let radius = 10;
-		const parseDate = d3.timeParse("%Y-%m-%d");
+		const parseDate = d3.timeParse("%m/%d/%Y");
+		const formatDate = d3.timeFormat("%Y")
 
 		// scales
 		let scaleX = null;
@@ -87,11 +89,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
+
+				console.log({$sel, height})
 				axisPadding = height/2;
 
 				// scaleX
 				scaleX = d3.scaleLinear()
-					.rangeRound([0, width])
+					.range([padding * 2, width - padding])
 					.domain(d3.extent(data, d => d.l))
 
 				$xAxis = d3
@@ -104,14 +108,15 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.call($xAxis);
 
 				// scaleY
-				scaleY = d3.scaleTime()
+				scaleY = d3.scaleLinear()
 					.rangeRound([0, height])
-					.domain(d3.extent(data, d => d.date))
+					.domain(d3.extent(data, d => d.year))
 
 				$yAxis = d3
 					.axisLeft(scaleY)
 					.tickPadding(8)
 					.ticks(10);
+
 
 				$axis.select('.y')
 					.attr('transform', `translate(${marginLeft + (marginRight/2)},${marginTop})`)
@@ -121,7 +126,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr("x", 0)
 					.attr("y", 0)
 					.attr("width", width)
-					.attr("height", height)
+					.attr("height", scaleY(2005) +  (radius * 2))
+					.attr('transform',  `translate(0, ${-radius})`)
 
 				$darkerLabel.attr('transform', `translate(7,${axisPadding/2})`)
 				$lighterLabel.attr('transform', `translate(${width - 7},${axisPadding/2})`)
@@ -182,7 +188,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 	        .attr('width', radius*2)
 					.attr('id', function(d) {
 						let splitz = (d.data.file_name).split('.')[0]
-						return `img-id img-id-${splitz}`
+						return `img-id-${splitz}`
 					})
 					.attr('class', function(d) {
 						let combinedName = (d.data.model).replace(' ', '-')
@@ -204,10 +210,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.selectAll('.model-img').classed('faded', true).transition(500);
 				d3.selectAll('.model-img').classed('highlight', false).transition(500);
 				//ID SELECTION NOT WORKING
-				//d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				//d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).delay(1000);
-				d3.selectAll('.model-img-Anne-Hathaway').classed('highlight', true).transition(500).delay(1000);
+				d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				// d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).delay(1000);
+				// d3.selectAll('.model-img-Anne-Hathaway').classed('highlight', true).transition(500).delay(1000);
 				$circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
 				$clip.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
 				$faces.attr('y', function(d) { return d.data.y - radius;}).transition(2000).ease(d3.easeLinear);
@@ -219,9 +225,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				console.log('step3')
 				d3.selectAll('.model-img').classed('highlight', false).transition(500);
 				d3.selectAll('.model-img').classed('faded', false).transition(500);
-				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(2000);
-				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000);
-				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(2000);
+				$circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(2000);
+				$clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(2000);
+				$faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(2000);
 				$yearRect.style('opacity', 0);
 				return Chart
 			},
@@ -238,10 +244,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
 				d3.select('#img-id-195_05_2005_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				$circle.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
-				$clip.attr('cy', function(d) { return scaleY(d.data.date) }).transition(5000).ease(d3.easeLinear);
-				$faces.attr('y', function(d) { return scaleY(d.data.date) - radius}).transition(5000).ease(d3.easeLinear);
-				$yearRect.style('opacity', 0);
+				$circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
+				$clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
+				$faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(5000).ease(d3.easeLinear);
+				$yearRect.style('opacity', 1);
 				return Chart
 			},
 			highlightLupita(){
