@@ -36,6 +36,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 
 		// helper functions
 		function handleClick(){
+			console.log("called")
 			$imageCont.selectAll('.g-img')
 				.attr('hidden', (d, i) => data.values[i] ? false : true)
 
@@ -43,8 +44,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 				.attr('src', (d, i) => data.values[i] ? `assets/images/covers500/${data.values[i].coverFile}` : '')
 
 			const tone = $imageCont.selectAll('.img-tone')
-			console.log({tone})
-				tone.style('background-color', (d, i) => data.values[i] ? `${data.values[i].tone}` : '#FFFFFF')
+				.style('background-color', (d, i) => data.values[i] ? `${data.values[i].tone}` : '#FFFFFF')
 		}
 
 		const Chart = {
@@ -108,6 +108,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 					.attr('alignment-baseline', 'middle')
 
 				Chart.resize()
+				if (data.key === "Gisele Bundchen") handleClick()
 				return Chart;
 			},
 			// get / set data
