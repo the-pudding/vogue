@@ -1,0 +1,27 @@
+<section class='repeat'>
+
+  <h3 class='divider'><span>{{doc.repeatHed}}</span></h3>
+
+  {{#each doc.repeat}}
+    <p class='prose'>{{{value}}}</p>
+  {{/each}}
+
+  <div class='rihanna'>
+    {{#each doc.rihannaImg}}
+      <div class='rihanna-img'>
+        <img src='/assets/images/covers500/{{file}}'>
+        <div class='rihanna-tone rihanna-tone{{@index}}'></div>
+      </div>
+    {{/each}}
+  </div>
+
+  {{#each doc.repeatPostRih}}
+    <p class='prose'>{{{value}}}</p>
+  {{/each}}
+
+  <figure class='repeat-models-img'>
+  </figure>
+  <figure class='repeat-models'>
+
+  </figure>
+</section>

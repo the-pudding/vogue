@@ -1,0 +1,71 @@
+.repeat
+  margin 20rem auto 0 auto
+  &-models
+    max-width $column-width
+    margin 0 auto
+    position relative
+  svg
+    height 30px
+    border 1px solid $bg
+    box-shadow none
+    background-color: $bg
+    transition 300ms ease-in-out
+    border-radius: 5px
+    cursor pointer
+    &:hover
+    	border 1px solid $gray-light
+    	box-shadow 0rem 1rem 2rem rgba($gray-light, 0.3)
+      background-color red
+      transition 300ms ease-in-out
+
+    .repeat-name
+      font-family $national
+
+  &-models-img
+    position sticky
+    position -webkit-sticky
+    top 50px
+    z-index 10
+    max-height 250px
+    overflow-x auto
+    white-space: nowrap
+    .g-img
+      width 150px
+      display inline-block
+      margin-right 5px
+      .img-tone
+        width 100%
+        height 10px
+
+  .rihanna
+    max-width $column-width
+    margin 0 auto
+    display flex
+    flex-direction: row-reverse;
+
+    &-img
+      margin-right 5px
+
+    img
+      max-height 190px
+      width auto
+      margin-bottom 5px
+
+    &-tone
+      width 100%
+      height 15px
+
+      &4
+        background-color: #9c6a59
+
+      &3
+        background-color: #B47648
+
+      &2
+        background-color: #CC9789
+
+      &1
+        background-color: #D6A185
+
+      &0
+        background-color: #F3B18D
