@@ -87,11 +87,11 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			// on resize, update new dimensions
 			resize() {
+				console.log("resized!")
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
 
-				console.log({$sel, height})
 				axisPadding = height/2;
 
 				// scaleX

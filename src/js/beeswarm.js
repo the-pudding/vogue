@@ -144,20 +144,20 @@ function resize() {
 
 	// 3. tell scrollama to update new element dimensions
 	beeswarmScroller.resize();
+	chart.resize()
 }
 
 function init() {
   return new Promise((resolve) => {
     loadFaces()
       .then(response => {
-				resize()
         setupChart()
 				setupScroll()
 				setupDropdown()
 
 				$modelDropdown.on('change', handleDropdown)
 				$switch.on('click', handleToggle)
-
+				resize()
         resolve()
       })
   })
