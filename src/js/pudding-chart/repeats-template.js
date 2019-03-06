@@ -11,14 +11,18 @@ d3.selection.prototype.repeatModel = function init(options) {
 	function createChart(el) {
 		const $sel = d3.select(el);
 		let data = $sel.datum();
+
+		const $imageCont = d3.select('.repeat-models-img')
+
 		// dimension stuff
 		let width = 0;
 		let height = 0;
 		const marginTop = 0;
 		const marginBottom = 0;
-		const marginLeft = 0;
-		const marginRight = 0;
-		const radius = 5;
+		const marginLeft = 10;
+		const marginRight = 10;
+		const radius = 6;
+		const textPadding = 125
 
 		// scales
 		const scaleX = d3.scaleLinear();
@@ -31,11 +35,25 @@ d3.selection.prototype.repeatModel = function init(options) {
 		let $g = null
 
 		// helper functions
+		function handleClick(){
+			$imageCont.selectAll('.g-img')
+				.attr('hidden', (d, i) => data.values[i] ? false : true)
+
+			$imageCont.selectAll('img')
+				.attr('src', (d, i) => data.values[i] ? `assets/images/covers500/${data.values[i].coverFile}` : '')
+
+			const tone = $imageCont.selectAll('.img-tone')
+			console.log({tone})
+				tone.style('background-color', (d, i) => data.values[i] ? `${data.values[i].tone}` : '#FFFFFF')
+		}
 
 		const Chart = {
 			// called once at start
 			init() {
 				$svg = $sel.append('svg').attr('class', 'pudding-chart');
+
+				$svg.on('click', handleClick)
+
 				$g = $svg.append('g');
 
 				// offset chart for margins
@@ -60,19 +78,21 @@ d3.selection.prototype.repeatModel = function init(options) {
 					.attr('height', height + marginTop + marginBottom);
 
 				scaleX
-					.rangeRound([0, width])
+					.rangeRound([textPadding, width])
 					.domain([.2127451, 0.8823529])
 					// keeping all small multiples on the same global scale
 
 				$g.selectAll('.repeat-cover')
 					.attr('transform', d => `translate(${scaleX(d.l)}, ${height / 2})`)
 
+				$g.selectAll('.repeat-name')
+					.attr('transform', `translate(5, ${height / 2})`)
+
 
 				return Chart;
 			},
 			// update scales and render chart
 			render() {
-				console.log({data})
 				const circles = $vis.selectAll('.repeat-cover')
 					.data(data.values)
 					.enter()
@@ -80,6 +100,12 @@ d3.selection.prototype.repeatModel = function init(options) {
 					.attr('class', 'repeat-cover')
 					.attr('r', radius)
 					.attr('fill', d => d.tone)
+					.attr('opacity', 0.8)
+
+				$vis.append('text')
+					.attr('class', 'repeat-name')
+					.text(data.key)
+					.attr('alignment-baseline', 'middle')
 
 				Chart.resize()
 				return Chart;
