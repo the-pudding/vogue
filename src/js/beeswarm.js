@@ -73,7 +73,7 @@ function renderStep(index) {
 		chart.highlightBlackWomen();
 	}
 	if (index === 4) {
-
+		chart.transitionRectangle()
 	}
 	if (index === 5) {
 		chart.highlightLupita();

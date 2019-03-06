@@ -1,0 +1,90 @@
+---
+title: "Exploration"
+author: "Amber Thomas"
+date: "3/5/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Looking at the data on repeat models
+
+```{r}
+library(here)
+library(tidyverse)
+library(lubridate)
+```
+
+```{r}
+faces <- read.csv("../src/assets/data/faces.csv", header = TRUE, stringsAsFactors = FALSE)
+models <- read.csv("../src/assets/data/models.csv", header = TRUE, stringsAsFactors = FALSE)
+```
+
+Anything interesting when comparing lightness value to number of covers? 
+```{r}
+ggplot(models, aes(x = l, y = n_covers)) + geom_point()
+```
+
+Anything different if we look at woc? 
+
+```{r}
+ggplot(models, aes(x = l, y = n_covers)) + geom_point() + facet_wrap(~woc)
+```
+
+Average number of covers by woc? 
+
+```{r}
+models %>% 
+  group_by(woc) %>% 
+  summarise(mean = mean(n_covers))
+```
+
+What percent of white vs. woc are on the cover more than once? 
+
+```{r}
+models %>% 
+  group_by(woc) %>% 
+  mutate(total = n()) %>% 
+  mutate(mult = ifelse(n_covers > 1, "y", "n")) %>% 
+  group_by(woc, mult) %>% 
+  summarise(per = n() )
+```
+
+Difference in if there is a repeat, how many repeats? 
+
+```{r}
+models %>% 
+  filter(n_covers > 1) %>% 
+  group_by(woc) %>% 
+  summarise(mean = mean(n_covers))
+```
+
+big difference in the time span specific models have been showing up? 
+
+```{r}
+faces %>% 
+  mutate(date = mdy(date)) %>% 
+  group_by(model) %>% 
+  arrange(date) %>% 
+  mutate(count = n()) %>% 
+```
+
+finding file name for cover instead of face
+```{r}
+coverfiles <- faces %>% 
+  mutate(faceFile = file_name) %>% 
+  separate(file_name, c("string", "ext"), "\\.") %>% 
+  mutate(newString = stringr::str_sub(string, end = -3)) %>% 
+  mutate(coverFile = paste0(newString, ".", ext)) %>% 
+  select(-c("string", "ext", "newString")) %>% 
+  rename(file_name = faceFile)
+
+write.csv(coverfiles, "../src/assets/data/faces.csv", row.names = FALSE)
+```
+
+```{r}
+models %>% filter(n_covers > 1)
+```
+

@@ -124,10 +124,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 				$yearRect
 					.attr("x", 0)
-					.attr("y", 0)
+					.attr("y", -radius)
 					.attr("width", width)
 					.attr("height", scaleY(2005) +  (radius * 2))
-					.attr('transform',  `translate(0, ${-radius})`)
+					//.attr('transform',  `translate(0, ${-radius})`)
 
 				$darkerLabel.attr('transform', `translate(7,${axisPadding/2})`)
 				$lighterLabel.attr('transform', `translate(${width - 7},${axisPadding/2})`)
@@ -249,6 +249,11 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(5000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 1);
 				return Chart
+			},
+			transitionRectangle(){
+				$yearRect.attr('y', scaleY(2006) - radius)
+					.attr('height', (scaleY(2018) - scaleY(2006)) + (radius * 2))
+					.transition(5000).ease(d3.easeLinear)
 			},
 			highlightLupita(){
 				console.log('step6')
