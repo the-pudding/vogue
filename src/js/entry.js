@@ -16,7 +16,7 @@ function resize() {
 	if (previousWidth !== width) {
 		previousWidth = width;
 		graphic.resize();
-		beeswarm.resize()
+		//beeswarm.resize()
 	}
 }
 

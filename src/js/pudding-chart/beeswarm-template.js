@@ -158,6 +158,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('class', 'g-pods')
 					.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`)
 
+				console.log({$pod})
+
 				$circle = $pod.append('circle')
 					.attr('r', radius)
 					.attr('id', function(d) {
@@ -207,14 +209,16 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart;
 			},
 			swapFaces(){
-				console.log('step2A')
+				console.log({step2A: $pod})
 				d3.selectAll('.model-img').classed('is-visible', true);
 				d3.selectAll('.model-circle').classed('is-visible', false);
+				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 				return Chart
 			},
 			// highlight tones
 			highlightInitTones() {
 				console.log('step2B')
+				console.log({$pod})
 				d3.selectAll('.model-img').classed('faded', true)
 				d3.selectAll('.model-img').classed('highlight', false)
 				d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true)
@@ -229,9 +233,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			// scatterTransition
 			scatterTransition(){
-				console.log('step3')
+				console.log({step3: $pod})
 				d3.selectAll('.model-img').classed('highlight', false)
 				d3.selectAll('.model-img').classed('faded', false)
+
 				$pod
 					.transition(5000)
 					.delay((d, i) => i * 50)
