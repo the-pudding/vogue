@@ -207,16 +207,19 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('height', height + marginTop + marginBottom);
 				return Chart;
 			},
+			swapFaces(){
+				console.log('step2A')
+				d3.selectAll('.model-img').classed('is-visible', true);
+				d3.selectAll('.model-circle').classed('is-visible', false);
+				return Chart
+			},
 			// highlight tones
 			highlightInitTones() {
 				console.log('step2B')
-				d3.selectAll('.model-img').classed('faded', true).transition(500);
-				d3.selectAll('.model-img').classed('highlight', false).transition(500);
-				//ID SELECTION NOT WORKING
-				d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				// d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).delay(1000);
-				// d3.selectAll('.model-img-Anne-Hathaway').classed('highlight', true).transition(500).delay(1000);
+				d3.selectAll('.model-img').classed('faded', true)
+				d3.selectAll('.model-img').classed('highlight', false)
+				d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true)
+				d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 
 				// $circle.attr('cy', function(d) { return d.data.y; }).transition(2000).ease(d3.easeLinear);
@@ -228,8 +231,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			// scatterTransition
 			scatterTransition(){
 				console.log('step3')
-				d3.selectAll('.model-img').classed('highlight', false).transition(500);
-				d3.selectAll('.model-img').classed('faded', false).transition(500);
+				d3.selectAll('.model-img').classed('highlight', false)
+				d3.selectAll('.model-img').classed('faded', false)
 				$pod
 					.transition(5000)
 					.delay((d, i) => i * 50)
@@ -248,29 +251,36 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			highlightBlackWomen(){
 				console.log('step4B')
-				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
-				//ID SELECTION NOT WORKING
-				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.select('#img-id-192_12_2002_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
-				d3.select('#img-id-195_05_2005_0').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('highlight', false)
+				d3.selectAll('.model-img').classed('faded', true)
+				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
+				d3.select('#img-id-192_12_2002_0').classed('highlight', true)
+				d3.select('#img-id-195_05_2005_0').classed('highlight', true)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`).transition(2000).ease(d3.easeLinear);
 				// $circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
 				// $clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
 				// $faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(5000).ease(d3.easeLinear);
-				$yearRect.style('opacity', 1);
+				$yearRect
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr('y', -radius)
+					.attr('height', scaleY(2005) +  (radius * 2));
 				return Chart
 			},
 			transitionRectangle(){
-				$yearRect.attr('y', scaleY(2006) - radius)
+				d3.selectAll('.model-img').classed('highlight', false)
+				d3.selectAll('.model-img').classed('faded', false)
+				$yearRect
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr('y', scaleY(2006) - radius)
 					.attr('height', (scaleY(2018) - scaleY(2006)) + (radius * 2))
-					.transition(5000).ease(d3.easeLinear)
 			},
 			highlightLupita(){
 				console.log('step6')
-				d3.selectAll('.model-img').classed('highlight', false).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img').classed('faded', true).transition(500).ease(d3.easeLinear);
-				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true).transition(500).ease(d3.easeLinear);
+				d3.selectAll('.model-img').classed('highlight', false)
+				d3.selectAll('.model-img').classed('faded', true)
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
 				$yearRect.style('opacity', 0);
 				return Chart
 			},
