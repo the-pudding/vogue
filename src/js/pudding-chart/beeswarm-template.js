@@ -15,7 +15,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let width = 0;
 		let height = 0;
 		const marginTop = 16;
-		const marginBottom = 16;
+		const marginBottom = 32;
 		const marginLeft = 32;
 		const marginRight = 16;
 		const padding = 16;
@@ -130,18 +130,18 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr("height", scaleY(2005) +  (radius * 2))
 					//.attr('transform',  `translate(0, ${-radius})`)
 
-				$darkerLabel.attr('transform', `translate(${marginLeft + 7},${axisPadding/2})`)
-				$lighterLabel.attr('transform', `translate(${width - marginRight - 7},${axisPadding/2})`)
+				$darkerLabel.attr('transform', `translate(${marginLeft + 7},${height/2 + marginBottom - 4})`)
+				$lighterLabel.attr('transform', `translate(${width - marginRight - 7},${height/2 + marginBottom - 4})`)
 
 				$xAxisGroup.append('path')
 					.attr('class', 'darker-arrow')
 					.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
-					.attr('transform', `translate(${marginLeft},${(axisPadding/2) - 4}) rotate(-90)`);
+					.attr('transform', `translate(${marginLeft},${(height/2) + marginBottom - 8}) rotate(-90)`);
 
 				$xAxisGroup.append('path')
 					.attr('class', 'lighter-arrow')
 					.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
-					.attr('transform', `translate(${width - marginRight},${(axisPadding/2) - 4}) rotate(90)`);
+					.attr('transform', `translate(${width - marginRight},${(height/2) + marginBottom - 8}) rotate(90)`);
 
 				// collision
 				simulation = d3.forceSimulation(data)
@@ -213,25 +213,27 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			swapFaces(){
 				d3.select('.switch input').classed('is-faces', true);
-				d3.selectAll('.model-img').classed('is-visible', true);
-				d3.selectAll('.model-circle').classed('is-visible', false);
+				$faces.classed('is-visible', true);
+				$circle.classed('is-visible', false);
 				$pod.transition(2000).ease(d3.easeLinear).attr('transform', d => `translate(${d.data.x}, ${d.data.y})`);
 				return Chart
 			},
 			// highlight tones
 			highlightInitTones() {
-				d3.selectAll('.model-img').classed('faded', true)
-				d3.selectAll('.model-img').classed('highlight', false)
+				$faces.classed('faded', true)
+				$faces.classed('highlight', false)
 				d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true)
 				d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 0);
+				$circle.classed('is-visible', false);
 				return Chart;
 			},
 			// scatterTransition
 			scatterTransition(){
-				d3.selectAll('.model-img').classed('highlight', false)
-				d3.selectAll('.model-img').classed('faded', false)
+				$faces.classed('highlight', false)
+				$faces.classed('faded', false)
+				$circle.classed('is-visible', false);
 
 				$pod
 					.transition(5000)
@@ -242,6 +244,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			highlightYears(){
+				$circle.classed('is-visible', false);
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -250,15 +253,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			highlightBlackWomen(){
-				d3.selectAll('.model-img').classed('highlight', false)
-				d3.selectAll('.model-img').classed('faded', true)
+				$faces.classed('highlight', false)
+				$faces.classed('faded', true)
+				$circle.classed('is-visible', false);
 				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
 				d3.select('#img-id-192_12_2002_0').classed('highlight', true)
 				d3.select('#img-id-195_05_2005_0').classed('highlight', true)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`).transition(2000).ease(d3.easeLinear);
-				// $circle.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
-				// $clip.attr('cy', function(d) { return scaleY(d.data.year) }).transition(5000).ease(d3.easeLinear);
-				// $faces.attr('y', function(d) { return scaleY(d.data.year) - radius}).transition(5000).ease(d3.easeLinear);
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -267,8 +268,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			transitionRectangle(){
-				d3.selectAll('.model-img').classed('highlight', false)
-				d3.selectAll('.model-img').classed('faded', false)
+				$faces.classed('highlight', false)
+				$faces.classed('faded', false)
+				$circle.classed('is-visible', false);
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -276,6 +278,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('height', (scaleY(2018) - scaleY(2006)) + (radius * 2))
 			},
 			highlightLupita(){
+				$faces.classed('highlight', false)
+				$faces.classed('faded', false)
+				$circle.classed('is-visible', false);
 				$yearRect.style('opacity', 0);
 				return Chart
 			},
