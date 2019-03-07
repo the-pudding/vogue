@@ -108,7 +108,7 @@ function setupScroll() {
 function setupDropdown() {
 	const uniqModels = _.uniqBy(data, 'model')
 	modelData.push(uniqModels.map(function(obj) { return obj.model; }).sort())
-	modelData[0].unshift('Pick a model')
+	modelData[0].unshift('All models')
 
 	$modelDropdown.selectAll('option')
     .data(modelData[0])
@@ -119,10 +119,31 @@ function setupDropdown() {
 }
 
 function handleToggle() {
+	const value = $modelDropdown.node().options[$modelDropdown.node().selectedIndex].text;
+	const combinedName = value.replace(' ', '-')
 	const faces = $switch.classed('is-faces')
-	$switch.classed('is-faces', !faces);
-	$modelImgs.classed('is-visible', !faces);
-	$modelCircles.classed('is-visible', faces);
+	if (combinedName == 'All-models') {
+		$switch.classed('is-faces', !faces);
+		$modelImgs.classed('is-visible', !faces);
+		$modelImgs.classed('faded', !faces);
+		$modelImgs.classed('highlight', !faces);
+		$modelCircles.classed('is-visible', faces);
+		$modelCircles.classed('highlight', !faces);
+	} else {
+		if ($switch.node().checked == true) {
+			$modelImgs.classed('highlight', false)
+			$modelImgs.classed('faded', true)
+			$modelCircles.classed('is-visible', faces);
+			d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+		}
+		else if ($switch.node().checked == false) {
+			$modelCircles.classed('highlight', false)
+			$modelCircles.classed('is-visible', !faces)
+			$modelImgs.classed('faded', false)
+			$modelImgs.classed('highlight', false)
+			d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+		}
+	}
 }
 
 function handleDropdown() {
@@ -131,10 +152,16 @@ function handleDropdown() {
 
 	// clear selections
 	$modelCircles.classed('highlight', false)
+	$modelImgs.classed('faded', false)
 	$modelImgs.classed('highlight', false)
 
-	d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
-	d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+	if ($switch.node().checked == true) {
+		$modelImgs.classed('faded', true)
+		d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+	}
+	else if ($switch.node().checked == false) {
+		d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+	}
 }
 
 function handleModelHovers() {
