@@ -21,6 +21,15 @@ const $scrollText = $scrollContainer.select('.scroll__text')
 const $step = $scrollText.selectAll('.step')
 const $modelDropdown = d3.select('#model-dropdown')
 const $switch = $scrollContainer.select('.switch input')
+const $modelImgs = d3.selectAll('.model-img')
+const $modelCircles = d3.selectAll('.model-circle')
+const $nyongoHover = d3.selectAll('#nyongo-button')
+const $nyongoAllHover = d3.selectAll('#nyongo-all-button')
+const $hathawayHover = d3.selectAll('#hathaway-button')
+const $jonesHover = d3.selectAll('#jones-button')
+const $berryHover = d3.selectAll('#berry-button')
+const $kebedeHover = d3.selectAll('#kebede-button')
+const $scrollButton = d3.selectAll('.scroll-button')
 
 function cleanFaces(arr){
 	return arr.map((d, i) => {
@@ -59,11 +68,14 @@ function handleStepEnter(response) {
 
 function renderStep(index) {
 	if (index === 0) {
-		d3.selectAll('.model-img').classed('is-visible', false)
+		console.log("step1")
+		$modelImgs.classed('is-visible', false);
+		$modelImgs.classed('faded', false)
+		$modelCircles.classed('is-visible', true);
 	}
 	if (index === 1) {
-		handleToggle()
-		chart.highlightInitTones();
+		chart.swapFaces()
+		//chart.highlightInitTones();
 	}
 	if (index === 2) {
 		chart.scatterTransition();
@@ -102,10 +114,7 @@ function setupDropdown() {
     .attr('value', d => d)
 }
 
-// TODO reverse
 function handleToggle() {
-	const $modelImgs = d3.selectAll('.model-img')
-	const $modelCircles = d3.selectAll('.model-circle')
 
 	const faces = $switch.classed('is-faces')
 	$switch.classed('is-faces', !faces);
@@ -118,11 +127,46 @@ function handleDropdown() {
 	const combinedName = value.replace(' ', '-')
 
 	// clear selections
-	d3.selectAll(`.model-circle`).classed('highlight', false)
-	d3.selectAll(`.model-img`).classed('highlight', false)
+	$modelCircles.classed('highlight', false)
+	$modelImgs.classed('highlight', false)
 
 	d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
 	d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+}
+
+function handleModelHovers() {
+	$scrollButton.on('mouseover', function() {
+		d3.selectAll('.model-img').classed('faded', true)
+		d3.selectAll('.model-img').classed('highlight', false)
+		if (this.id == 'nyongo-button') {
+			d3.select('#img-id-208_01_2018_0').classed('highlight', true)
+		}
+		if (this.id == 'hathaway-button') {
+			d3.select('#img-id-200_11_2010_0').classed('highlight', true)
+		}
+		if (this.id == 'jones-button') {
+			d3.select('#img-id-191_01_2001_0').classed('highlight', true)
+		}
+		if (this.id == 'berry-button') {
+			d3.select('#img-id-192_12_2002_0').classed('highlight', true)
+		}
+		if (this.id == 'kebede-button') {
+			d3.select('#img-id-195_05_2005_0').classed('highlight', true)
+		}
+		if (this.id == 'nyongo-all-button') {
+			d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+		}
+	})
+	$scrollButton.on('mouseout', function() {
+		d3.selectAll('.model-img').classed('faded', true)
+		d3.selectAll('.model-img').classed('highlight', false)
+
+		if (this.id == 'jones-button' || this.id == 'berry-button' || this.id == 'kebede-button'){
+			d3.select('#img-id-191_01_2001_0').classed('highlight', true)
+			d3.select('#img-id-195_05_2005_0').classed('highlight', true)
+			d3.select('#img-id-192_12_2002_0').classed('highlight', true)
+		}
+	})
 }
 
 function resize() {
@@ -154,6 +198,7 @@ function init() {
         setupChart()
 				setupScroll()
 				setupDropdown()
+				handleModelHovers()
 
 				$modelDropdown.on('change', handleDropdown)
 				$switch.on('click', handleToggle)
