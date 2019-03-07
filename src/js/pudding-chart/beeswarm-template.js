@@ -167,7 +167,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('r', radius)
 					.attr('id', function(d) {
 						let splitz = (d.data.file_name).split('.')[0]
-						return `circle-id circle-id-${splitz}`
+						return `circle-id-${splitz}`
 					})
 					.attr('class', function(d) {
 						let combinedName = (d.data.model).replace(' ', '-')
@@ -242,7 +242,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			highlightYears(){
-				console.log('step4A')
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -251,7 +250,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			highlightBlackWomen(){
-				console.log('step4B')
 				d3.selectAll('.model-img').classed('highlight', false)
 				d3.selectAll('.model-img').classed('faded', true)
 				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
