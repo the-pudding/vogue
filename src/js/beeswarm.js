@@ -71,12 +71,13 @@ function handleStepEnter(response) {
 
 function renderStep(index) {
 	if (index === 0) {
-		console.log("step1")
+		$switch.node().checked = false
 		$modelImgs.classed('is-visible', false);
 		$modelImgs.classed('faded', false)
 		$modelCircles.classed('is-visible', true);
 	}
 	if (index === 1) {
+		$switch.node().checked = true
 		chart.swapFaces()
 		//chart.highlightInitTones();
 	}
@@ -85,7 +86,7 @@ function renderStep(index) {
 	}
 	if (index === 3) {
 		chart.highlightYears();
-		chart.highlightBlackWomen();
+		//chart.highlightBlackWomen();
 	}
 	if (index === 4) {
 		chart.transitionRectangle()
@@ -118,7 +119,7 @@ function setupDropdown() {
 }
 
 function handleToggle() {
-
+	console.log()
 	const faces = $switch.classed('is-faces')
 	$switch.classed('is-faces', !faces);
 	$modelImgs.classed('is-visible', !faces);
@@ -161,14 +162,8 @@ function handleModelHovers() {
 		}
 	})
 	$scrollButton.on('mouseout', function() {
-		d3.selectAll('.model-img').classed('faded', true)
+		d3.selectAll('.model-img').classed('faded', false)
 		d3.selectAll('.model-img').classed('highlight', false)
-
-		if (this.id == 'jones-button' || this.id == 'berry-button' || this.id == 'kebede-button'){
-			d3.select('#img-id-191_01_2001_0').classed('highlight', true)
-			d3.select('#img-id-195_05_2005_0').classed('highlight', true)
-			d3.select('#img-id-192_12_2002_0').classed('highlight', true)
-		}
 	})
 }
 
