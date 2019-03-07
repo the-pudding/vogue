@@ -212,7 +212,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				console.log({step2A: $pod})
 				d3.selectAll('.model-img').classed('is-visible', true);
 				d3.selectAll('.model-circle').classed('is-visible', false);
-				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
+				$pod.transition(2000).ease(d3.easeLinear).attr('transform', d => `translate(${d.data.x}, ${d.data.y})`);
 				return Chart
 			},
 			// highlight tones
