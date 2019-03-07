@@ -21,8 +21,8 @@ const $scrollText = $scrollContainer.select('.scroll__text')
 const $step = $scrollText.selectAll('.step')
 const $modelDropdown = d3.select('#model-dropdown')
 const $switch = $scrollContainer.select('.switch input')
-const $modelImgs = d3.selectAll('.model-img')
-const $modelCircles = d3.selectAll('.model-circle')
+let $modelImgs = null
+let $modelCircles = null
 const $nyongoHover = d3.selectAll('#nyongo-button')
 const $nyongoAllHover = d3.selectAll('#nyongo-all-button')
 const $hathawayHover = d3.selectAll('#hathaway-button')
@@ -57,6 +57,9 @@ function setupChart() {
 	chart = $beeswarmChart
 		.datum(data)
 		.beeswarmChart()
+
+	$modelImgs = d3.selectAll('.model-img')
+	$modelCircles = d3.selectAll('.model-circle')
 }
 
 function handleStepEnter(response) {
