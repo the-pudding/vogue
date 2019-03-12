@@ -77,9 +77,7 @@ function renderStep(index) {
 		$modelCircles.classed('is-visible', true);
 	}
 	if (index === 1) {
-		$switch.node().checked = true
-		chart.swapFaces()
-		//chart.highlightInitTones();
+		chart.highlightInitTones();
 	}
 	if (index === 2) {
 		chart.scatterTransition();
@@ -89,9 +87,13 @@ function renderStep(index) {
 		//chart.highlightBlackWomen();
 	}
 	if (index === 4) {
-		chart.transitionRectangle()
+		chart.highlightMids()
 	}
 	if (index === 5) {
+		chart.transitionRectangle();
+		chart.swapFaces();
+	}
+	if (index === 6) {
 		chart.highlightLupita();
 	}
 }

@@ -215,25 +215,28 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				d3.select('.switch input').classed('is-faces', true);
 				$faces.classed('is-visible', true);
 				$circle.classed('is-visible', false);
-				$pod.transition(2000).ease(d3.easeLinear).attr('transform', d => `translate(${d.data.x}, ${d.data.y})`);
+				$circle.classed('highlight', false);
+				$faces.classed('highlight', false);
+				$faces.classed('faded', false);
 				return Chart
 			},
 			// highlight tones
 			highlightInitTones() {
-				$faces.classed('faded', true)
+				$faces.classed('faded', false)
 				$faces.classed('highlight', false)
-				d3.selectAll('#img-id-208_01_2018_0').classed('highlight', true)
-				d3.selectAll('#img-id-200_11_2010_0').classed('highlight', true)
+				$faces.classed('is-visible', false)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 0);
-				$circle.classed('is-visible', false);
+				$circle.classed('is-visible', true);
+				$circle.classed('highlight', false);
 				return Chart;
 			},
 			// scatterTransition
 			scatterTransition(){
 				$faces.classed('highlight', false)
-				$faces.classed('faded', false)
-				$circle.classed('is-visible', false);
+				$faces.classed('is-visible', false)
+				$circle.classed('is-visible', true);
+				$circle.classed('highlight', false);
 
 				$pod
 					.transition(5000)
@@ -244,7 +247,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			highlightYears(){
-				$circle.classed('is-visible', false);
+				$circle.classed('is-visible', true);
+				$circle.classed('highlight', false);
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -252,10 +256,22 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('height', scaleY(2005) +  (radius * 2));
 				return Chart
 			},
+			highlightMids() {
+				$faces.classed('highlight', false)
+				$faces.classed('is-visible', false)
+				$circle.classed('is-visible', true);
+				$circle.classed('highlight', false);
+				$yearRect
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr('y', scaleY(2006) - radius)
+					.attr('height', (scaleY(2014) - scaleY(2006)) + (radius * 2))
+			},
 			highlightBlackWomen(){
 				$faces.classed('highlight', false)
 				$faces.classed('faded', true)
 				$circle.classed('is-visible', false);
+				$circle.classed('highlight', false);
 				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
 				d3.select('#img-id-192_12_2002_0').classed('highlight', true)
 				d3.select('#img-id-195_05_2005_0').classed('highlight', true)
@@ -270,17 +286,20 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			transitionRectangle(){
 				$faces.classed('highlight', false)
 				$faces.classed('faded', false)
+				$faces.classed('is-visible', true)
 				$circle.classed('is-visible', false);
+				$circle.classed('highlight', false);
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
-					.attr('y', scaleY(2006) - radius)
-					.attr('height', (scaleY(2018) - scaleY(2006)) + (radius * 2))
+					.attr('y', scaleY(2014) - radius)
+					.attr('height', (scaleY(2018) - scaleY(2014)) + (radius * 2))
 			},
 			highlightLupita(){
 				$faces.classed('highlight', false)
-				$faces.classed('faded', false)
+				$faces.classed('faded', true)
 				$circle.classed('is-visible', false);
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
 				$yearRect.style('opacity', 0);
 				return Chart
 			},
