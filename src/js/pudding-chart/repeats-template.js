@@ -22,7 +22,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 		const marginLeft = 10;
 		const marginRight = 10;
 		const radius = 6;
-		const textPadding = 125
+		const textPadding = 175
 
 		// scales
 		const scaleX = d3.scaleLinear();
@@ -32,19 +32,21 @@ d3.selection.prototype.repeatModel = function init(options) {
 		let $svg = null;
 		let $axis = null;
 		let $vis = null;
-		let $g = null
+		let $g = null;
 
 		// helper functions
 		function handleClick(){
 			console.log("called")
 			$imageCont.selectAll('.g-img')
 				.attr('hidden', (d, i) => data.values[i] ? false : true)
+				.classed('hidden', (d, i) => data.values[i] ? false : true)
 
-			$imageCont.selectAll('img')
+			$imageCont.selectAll('.img-container img')
 				.attr('src', (d, i) => data.values[i] ? `assets/images/covers500/${data.values[i].coverFile}` : '')
 
 			const tone = $imageCont.selectAll('.img-tone')
 				.style('background-color', (d, i) => data.values[i] ? `${data.values[i].tone}` : '#FFFFFF')
+
 		}
 
 		const Chart = {
@@ -102,10 +104,22 @@ d3.selection.prototype.repeatModel = function init(options) {
 					.attr('fill', d => d.tone)
 					.attr('opacity', 0.8)
 
-				$vis.append('text')
+				const modelName = $vis.append('text')
 					.attr('class', 'repeat-name')
 					.text(data.key)
 					.attr('alignment-baseline', 'middle')
+
+				modelName.append('tspan')
+					.attr('class', 'repeat-num')
+					.text(function(data) {
+						if (data.key === "Gisele Bundchen") {
+							return` (${data.values.length} covers)`
+						} else {
+							return` (${data.values.length})`
+						}
+					})
+					.attr('alignment-baseline', 'middle')
+
 
 				Chart.resize()
 				if (data.key === "Gisele Bundchen") handleClick()

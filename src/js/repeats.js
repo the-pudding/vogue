@@ -9,11 +9,19 @@ let nested = []
 const $container = d3.select('.repeat-models')
 const $imageCont = d3.select('.repeat-models-img')
 
+function handelModelClick(){
+  const $selectedModel = d3.select(this)
+  const $models = d3.selectAll('.model')
+  $models.classed('highlight', false)
+  $selectedModel.classed('highlight', true)
+}
+
 function setupChart(){
   nested = d3.nest()
     .key(d => d.model)
     .entries(data)
     .sort((a, b) => d3.descending(a.values.length, b.values.length))
+    .filter(data => data.values.length > 1)
 
   const charts = $container
     .selectAll('.model')
@@ -21,6 +29,7 @@ function setupChart(){
     .enter()
     .append('div')
     .attr('class', 'model')
+    .on('click', handelModelClick)
     .repeatModel()
 }
 
@@ -33,7 +42,8 @@ function setupImageContainer(){
     .append('div')
     .attr('class', 'g-img')
 
-  imageGroups.append('img')
+  const imageContainer = imageGroups.append('div').attr('class', 'img-container')
+  imageContainer.append('img')
   imageGroups.append('div').attr('class', 'img-tone')
 }
 
@@ -43,6 +53,9 @@ function init(){
       data = results[0]
       setupChart()
       setupImageContainer()
+      //make gisele the default
+      d3.select('.model').classed('highlight', true)
+      d3.selectAll('.g-img').classed('hidden', true)
     })
 }
 
