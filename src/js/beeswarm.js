@@ -242,7 +242,7 @@ function resize() {
 
 	// 3. tell scrollama to update new element dimensions
 	beeswarmScroller.resize();
-	//chart.resize()
+	chart.resize()
 }
 
 function init() {

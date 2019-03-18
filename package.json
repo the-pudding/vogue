@@ -13,7 +13,7 @@
     "lodash.debounce": "^4.0.8",
     "nouislider": "^12.1.0",
     "promise-polyfill": "^8.1.0",
-    "scrollama": "^1.4.4",
+    "scrollama": "^2.0.0",
     "superagent": "^4.1.0",
     "whatwg-fetch": "3.0.0"
   },

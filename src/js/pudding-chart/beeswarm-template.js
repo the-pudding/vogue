@@ -49,6 +49,46 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 
 		// helper functions
+		function appendCircles(enter){
+		  $circle = enter.append('circle')
+		    .attr('r', radius)
+		    .attr('id', function(d) {
+		      let splitz = (d.data.file_name).split('.')[0]
+		      return `circle-id-${splitz}`
+		    })
+		    .attr('class', function(d) {
+		      let combinedName = (d.data.model).replace(' ', '-')
+		      return `model-circle model-circle-${combinedName} is-visible`
+		    })
+		    .style('fill', function(d) { return `${d.data.tone}`; })
+
+		  $clip = enter.append('clipPath')
+		    .attr('id', function(d) {
+		      let splitz = (d.data.file_name).split('.')[0]
+		      return `${splitz}-clipCircle`
+		    })
+		    .append("circle")
+		    .attr("r", radius)
+
+		    $faces = enter.append('svg:image')
+		      .attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
+		      .attr('x', function(d) { return - radius;})
+		      .attr('y', function(d) { return - radius;})
+		      .attr('height', radius*2)
+		      .attr('width', radius*2)
+		      .attr('id', function(d) {
+		        let splitz = (d.data.file_name).split('.')[0]
+		        return `img-id-${splitz}`
+		      })
+		      .attr('class', function(d) {
+		        let combinedName = (d.data.model).replace(' ', '-')
+		        return `model-img model-img-${combinedName}`
+		      })
+		      .attr('clip-path', function(d) {
+		        let splitz = (d.data.file_name).split('.')[0]
+		        return `url(#${splitz}-clipCircle)`
+		      })
+		}
 
 		const Chart = {
 			// called once at start
@@ -148,63 +188,34 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.force("x", d3.forceX(function(d) { return scaleX(d.l); }).strength(1))
 					.force("y", d3.forceY(height / 2))
 					.force("collide", d3.forceCollide(radius + 1))
-					.stop();
+					.alphaDecay(0.0228)
+        	.velocityDecay(0.4)
+					.restart();
+				simulation.alpha(1)
+				for (var i = 0; i < 200; ++i) {
+					console.log("tick")
+					simulation.tick()
+				};
 
-				for (var i = 0; i < 200; ++i) simulation.tick();
+				const dataDef = d3.voronoi().extent([[-marginLeft, -marginTop], [width + marginRight, height + marginTop]])
+					.x(function(d) { return d.x; })
+					.y(function(d) { return d.y; })
+					.polygons(data)
 
+				// for make circles
 				$pod = $cell
 					.selectAll('g')
-					.data(d3.voronoi().extent([[-marginLeft, -marginTop], [width + marginRight, height + marginTop]])
-					.x(function(d) { return d.x; })
-	        .y(function(d) { return d.y; })
-	      	.polygons(data)).enter().append('g')
-					.attr('class', 'g-pods')
+					.data(dataDef)
+					.join(enter => {
+					 const g =	enter
+							.append('g')
+							.attr('class', 'g-pods')
+
+								 appendCircles(g)
+								 return g
+					})
 					.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`)
 
-				console.log({$pod})
-
-				$circle = $pod.append('circle')
-					.attr('r', radius)
-					.attr('id', function(d) {
-						let splitz = (d.data.file_name).split('.')[0]
-						return `circle-id-${splitz}`
-					})
-					.attr('class', function(d) {
-						let combinedName = (d.data.model).replace(' ', '-')
-						return `model-circle model-circle-${combinedName} is-visible`
-					})
-					.style('fill', function(d) { return `${d.data.tone}`; })
-					// .attr('cx', function(d) { return d.data.x; })
-					// .attr('cy', function(d) { return d.data.y; });
-
-				$clip = $pod.append('clipPath')
-					.attr('id', function(d) {
-						let splitz = (d.data.file_name).split('.')[0]
-						return `${splitz}-clipCircle`
-					})
-					.append("circle")
-			    .attr("r", radius)
-					// .attr('cx', function(d) { return d.data.x; })
-					// .attr('cy', function(d) { return d.data.y; })
-
-				$faces = $pod.append('svg:image')
-					.attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
-					.attr('x', function(d) { return - radius;})
-	        .attr('y', function(d) { return - radius;})
-	        .attr('height', radius*2)
-	        .attr('width', radius*2)
-					.attr('id', function(d) {
-						let splitz = (d.data.file_name).split('.')[0]
-						return `img-id-${splitz}`
-					})
-					.attr('class', function(d) {
-						let combinedName = (d.data.model).replace(' ', '-')
-						return `model-img model-img-${combinedName}`
-					})
-					.attr('clip-path', function(d) {
-						let splitz = (d.data.file_name).split('.')[0]
-						return `url(#${splitz}-clipCircle)`
-					})
 
 				$svg
 					.attr('width', width + marginRight)

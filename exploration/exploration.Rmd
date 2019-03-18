@@ -68,7 +68,7 @@ faces %>%
   mutate(date = mdy(date)) %>% 
   group_by(model) %>% 
   arrange(date) %>% 
-  mutate(count = n()) %>% 
+  mutate(count = n()) 
 ```
 
 finding file name for cover instead of face
