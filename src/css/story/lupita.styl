@@ -1,4 +1,41 @@
 .lupita
-  img
-    max-width $text-width
-    margin 2.5rem auto
+
+  .lupitaBox
+    max-width $column-width
+    margin 1.5rem auto 0 auto
+    display flex
+    padding 2rem 0
+    flex-direction row-reverse
+    justify-content center
+
+    .img-container
+      height 11rem
+      width 8rem
+      margin 0 5px 0.25rem 0
+
+    img
+      width 100%
+      object-fit cover
+      height 11rem
+
+    &-tone
+      width calc(100% - 5px)
+      height 1rem
+
+      &5
+        background-color #402C2C
+
+      &4
+        background-color #8F5347
+
+      &3
+        background-color #58342B
+
+      &2
+        background-color #875038
+
+      &1
+        background-color #85524F
+
+      &0
+        background-color #844930

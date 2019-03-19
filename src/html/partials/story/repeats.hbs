@@ -6,11 +6,13 @@
     <p class='prose'>{{{value}}}</p>
   {{/each}}
 
-  <div class='rihanna'>
+  <div class='rihannaBox'>
     {{#each doc.rihannaImg}}
       <div class='rihanna-img'>
-        <img src='/assets/images/covers500/{{file}}'>
-        <div class='rihanna-tone rihanna-tone{{@index}}'></div>
+        <div class='img-container'>
+          <img src='/assets/images/covers500/{{file}}'>
+        </div>
+        <div class='rihannaBox-tone rihannaBox-tone{{@index}}'></div>
       </div>
     {{/each}}
   </div>

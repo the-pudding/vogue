@@ -34,11 +34,13 @@
     position -webkit-sticky
     top 3rem
     z-index 10
-    padding 1.5rem 0
+    padding 1.5rem 0 0.5rem 0
     overflow-x auto
     box-shadow 0rem 0.5rem 1rem rgba($gray-light, 0.3)
     white-space nowrap
     background-color rgba($white, 0.95)
+    justify-content center
+    display flex
     .g-img
       width 8rem
       display inline-block
@@ -46,7 +48,7 @@
       .img-container
         height 11rem
         width 100%
-        margin-bottom 0.5rem
+        margin-bottom 0.25rem
         img
           width 100%
           height 11rem
@@ -56,25 +58,29 @@
         height 1rem
     .g-img
       &.hidden
-        display none    
+        display none
 
-  .rihanna
+  .rihannaBox
     max-width $column-width
     margin 0 auto
+    padding 2rem 0
     display flex
-    flex-direction: row-reverse;
+    flex-direction row-reverse
+    justify-content center
 
-    &-img
-      margin-right 5px
+    .img-container
+        height 11rem
+        width 8rem
+        margin 0 5px 0.25rem 0
 
     img
-      max-height 190px
-      width auto
-      margin-bottom 5px
+      width 100%
+      object-fit cover
+      height 11rem
 
     &-tone
-      width 100%
-      height 15px
+      width calc(100% - 5px)
+      height 1rem
 
       &4
         background-color: #9c6a59

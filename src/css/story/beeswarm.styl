@@ -36,8 +36,10 @@
 			margin 0
 
 		.img-toggle
-			display flex
-			flex-direction row
+			display none
+			&.is-visible
+				display flex
+				flex-direction row
 
 			p
 				margin-right 0.5rem

@@ -1,6 +1,16 @@
 <section class='lupita'>
   <h3 class='divider'><span>{{doc.lupitaHed}}</span></h3>
-  <img class='lupita-image' src='assets/images/lupitaPlaceholder.png'>
+
+  <div class='lupitaBox'>
+    {{#each doc.lupitaImg}}
+      <div class='lupita-img'>
+        <div class='img-container'>
+          <img src='/assets/images/covers500/{{file}}'>
+        </div>
+        <div class='lupitaBox-tone lupitaBox-tone{{@index}}'></div>
+      </div>
+    {{/each}}
+  </div>
 
   {{#each doc.lupita}}
     <p class='prose'>{{{value}}}</p>
