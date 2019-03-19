@@ -8,6 +8,13 @@ let nested = []
 // selections
 const $container = d3.select('.repeat-models')
 const $imageCont = d3.select('.repeat-models-img')
+const $moreButton = d3.select('.show-more')
+
+function handleShowMoreClick() {
+  console.log('clicked')
+  $container.classed('is-expanded', true)
+  $moreButton.classed('is-visible', false)
+}
 
 function handelModelClick(){
   const $selectedModel = d3.select(this)
@@ -56,6 +63,8 @@ function init(){
       //make gisele the default
       d3.select('.model').classed('highlight', true)
       d3.selectAll('.g-img').classed('hidden', true)
+
+      $moreButton.on('click', handleShowMoreClick)
     })
 }
 
