@@ -87,4 +87,15 @@ write.csv(coverfiles, "../src/assets/data/faces.csv", row.names = FALSE)
 ```{r}
 models %>% filter(n_covers > 1)
 ```
+```{r}
+repeats <- faces %>% 
+  mutate(date = mdy(date),
+         year = year(date)) %>% 
+  filter(year >= 2014) %>% 
+  group_by(woc, model) %>% 
+  summarise(count = n()) %>% 
+  filter(count >= 2) %>% 
+  group_by(woc) %>% 
+  summarise(count = n())
+```
 

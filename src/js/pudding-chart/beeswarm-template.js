@@ -54,7 +54,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 		// helper functions
 		function appendCircles(enter){
-		  $circle = enter.append('circle')
+		  let circle = enter.append('circle')
 		    .attr('r', radius)
 		    .attr('id', function(d) {
 		      let splitz = (d.data.file_name).split('.')[0]
@@ -66,7 +66,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		    })
 		    .style('fill', function(d) { return `${d.data.tone}`; })
 
-		  $clip = enter.append('clipPath')
+			$circle = d3.selectAll('.model-circle')
+
+		 $clip = enter.append('clipPath')
 		    .attr('id', function(d) {
 		      let splitz = (d.data.file_name).split('.')[0]
 		      return `${splitz}-clipCircle`
@@ -74,7 +76,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		    .append("circle")
 		    .attr("r", radius)
 
-		    $faces = enter.append('svg:image')
+
+		    let faces = enter.append('svg:image')
 		      .attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
 		      .attr('x', function(d) { return - radius;})
 		      .attr('y', function(d) { return - radius;})
@@ -92,6 +95,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		        let splitz = (d.data.file_name).split('.')[0]
 		        return `url(#${splitz}-clipCircle)`
 		      })
+
+				$faces = d3.selectAll('.model-img')
 		}
 
 		const Chart = {
@@ -245,7 +250,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart;
 			},
 			swapFaces(){
-				//console.log('face swap')
+				console.log({$faces})
 				$beeswarmToggle.classed('is-visible', true);
 				d3.select('.switch input').classed('is-faces', true);
 				$faces.classed('is-visible', true);
