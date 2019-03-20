@@ -17,12 +17,14 @@ function handleShowMoreClick() {
   $moreButton.classed('is-visible', false)
 }
 
-function handelModelClick(){
+function handleModelClick(){
   const $selectedModel = d3.select(this)
   const $models = d3.selectAll('.model')
   $models.classed('highlight', false)
   $selectedModel.classed('highlight', true)
 }
+
+
 
 function setupChart(){
   nested = d3.nest()
@@ -37,8 +39,9 @@ function setupChart(){
     .enter()
     .append('div')
     .attr('class', 'model')
-    .on('click', handelModelClick)
+    .on('click', handleModelClick)
     .repeatModel()
+
 }
 
 function setupImageContainer(){
@@ -59,11 +62,15 @@ function init(){
   Promise.all([loadData()])
     .then(results => {
       data = results[0]
-      setupChart()
       setupImageContainer()
+
+    })
+    .then(() => {
+      setupChart()
+
       //make gisele the default
       d3.select('.model').classed('highlight', true)
-      d3.selectAll('.g-img').classed('hidden', true)
+      d3.selectAll('.g-img').classed('hidden', false)
 
       $moreButton.on('click', handleShowMoreClick)
     })

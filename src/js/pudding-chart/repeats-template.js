@@ -12,7 +12,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 		const $sel = d3.select(el);
 		let data = $sel.datum();
 
-		const $imageCont = d3.select('.repeat-models-img')
+		const $imageCont = d3.select('.repeat-models-container')
 
 		// dimension stuff
 		let width = 0;
@@ -36,7 +36,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 
 		// helper functions
 		function handleClick(){
-			console.log("called")
+
 			$imageCont.selectAll('.g-img')
 				.attr('hidden', (d, i) => data.values[i] ? false : true)
 				.classed('hidden', (d, i) => data.values[i] ? false : true)
