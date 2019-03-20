@@ -84,7 +84,6 @@ function renderStep(index) {
 	}
 	if (index === 3) {
 		chart.highlightYears();
-		//chart.highlightBlackWomen();
 	}
 	if (index === 4) {
 		chart.highlightMids()

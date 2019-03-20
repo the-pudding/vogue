@@ -49,7 +49,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let $darkerArrow = null;
 		let $lighterArrow = null;
 		let $yearRect = null;
-
+		let $leftLine = null;
+		let $rightLine = null;
 
 		// helper functions
 		function appendCircles(enter){
@@ -122,6 +123,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
 
 				$yearRect = $yAxisGroup.append('rect').attr('class','year-rect')
+				$leftLine = $xAxisGroup.append('line').attr('class', 'range-line')
+				$rightLine = $xAxisGroup.append('line').attr('class', 'range-line')
 
 				const $g = $svg.append('g');
 
@@ -169,11 +172,26 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.tickFormat(d3.format('d'))
 					.ticks(10);
 
-
 				$axis.select('.y')
 					.attr('transform', `translate(${marginLeft + (marginRight/2)},${marginTop})`)
 					.call($yAxis);
 
+				//range lines
+				$leftLine
+					.attr("x1", function(d) {return scaleX(0.44248366); })
+					.attr("y1", scaleY(2000) + radius)
+					.attr("x2", function(d) { return scaleX(0.44248366); })
+					.attr("y2", scaleY(2005) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+
+					$rightLine
+						.attr("x1", function(d) {return scaleX(0.855555556); })
+						.attr("y1", scaleY(2000) + radius)
+						.attr("x2", function(d) { return scaleX(0.855555556); })
+						.attr("y2", scaleY(2005) + radius*3)
+						.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+
+				//bg rectangle
 				$yearRect
 					.attr("x", 0)
 					.attr("y", -radius)
@@ -235,6 +253,23 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$circle.classed('highlight', false);
 				$faces.classed('highlight', false);
 				$faces.classed('faded', false);
+				$yearRect.style('opacity', 1);
+				$leftLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.212745098); })
+					.attr("y1", scaleY(2014) + radius)
+					.attr("x2", function(d) { return scaleX(0.212745098); })
+					.attr("y2", scaleY(2018) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+				$rightLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.858226769); })
+					.attr("y1", scaleY(2014) + radius)
+					.attr("x2", function(d) { return scaleX(0.858226769); })
+					.attr("y2", scaleY(2018) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
 				return Chart
 			},
 			// highlight tones
@@ -245,6 +280,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$faces.classed('is-visible', false)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 0);
+				$leftLine.style('opacity', 0);
+				$rightLine.style('opacity', 0);
 				$circle.classed('is-visible', true);
 				$circle.classed('highlight', false);
 				return Chart;
@@ -263,12 +300,30 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.ease(d3.easeLinear)
 					.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`)
 				$yearRect.style('opacity', 0);
+				$leftLine.style('opacity', 0);
+				$rightLine.style('opacity', 0);
 				return Chart
 			},
 			highlightYears(){
 				$beeswarmToggle.classed('is-visible', true);
 				$circle.classed('is-visible', true);
 				$circle.classed('highlight', false);
+				$leftLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.44248366); })
+					.attr("y1", scaleY(2000) + radius)
+					.attr("x2", function(d) { return scaleX(0.44248366); })
+					.attr("y2", scaleY(2005) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+				$rightLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.855555556); })
+					.attr("y1", scaleY(2000) + radius)
+					.attr("x2", function(d) { return scaleX(0.855555556); })
+					.attr("y2", scaleY(2005) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
 				$yearRect
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -287,23 +342,22 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', scaleY(2006) - radius)
 					.attr('height', (scaleY(2014) - scaleY(2006)) + (radius * 2))
-			},
-			highlightBlackWomen(){
-				$beeswarmToggle.classed('is-visible', false);
-				$faces.classed('highlight', false)
-				$faces.classed('faded', true)
-				$circle.classed('is-visible', false);
-				$circle.classed('highlight', false);
-				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
-				d3.select('#img-id-192_12_2002_0').classed('highlight', true)
-				d3.select('#img-id-195_05_2005_0').classed('highlight', true)
-				$pod.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`).transition(2000).ease(d3.easeLinear);
-				$yearRect
+				$leftLine
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
-					.attr('y', -radius)
-					.attr('height', scaleY(2005) +  (radius * 2));
-				return Chart
+					.attr("x1", function(d) {return scaleX(0.354117647); })
+					.attr("y1", scaleY(2006) + radius)
+					.attr("x2", function(d) { return scaleX(0.354117647); })
+					.attr("y2", scaleY(2014) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+				$rightLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.882352941); })
+					.attr("y1", scaleY(2006) + radius)
+					.attr("x2", function(d) { return scaleX(0.882352941); })
+					.attr("y2", scaleY(2014) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
 			},
 			transitionRectangle(){
 				$beeswarmToggle.classed('is-visible', false);
@@ -317,6 +371,22 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', scaleY(2014) - radius)
 					.attr('height', (scaleY(2018) - scaleY(2014)) + (radius * 2))
+				$leftLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.212745098); })
+					.attr("y1", scaleY(2014) + radius)
+					.attr("x2", function(d) { return scaleX(0.212745098); })
+					.attr("y2", scaleY(2018) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+				$rightLine
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr("x1", function(d) {return scaleX(0.858226769); })
+					.attr("y1", scaleY(2014) + radius)
+					.attr("x2", function(d) { return scaleX(0.858226769); })
+					.attr("y2", scaleY(2018) + radius*3)
+					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
 			},
 			highlightLupita(){
 				$beeswarmToggle.classed('is-visible', true);
@@ -325,6 +395,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$circle.classed('is-visible', false);
 				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
 				$yearRect.style('opacity', 0);
+				$leftLine.style('opacity', 0);
+				$rightLine.style('opacity', 0);
 				return Chart
 			},
 			// update scales and render chart
