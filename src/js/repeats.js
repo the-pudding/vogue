@@ -4,6 +4,7 @@ import './pudding-chart/repeats-template'
 let data = []
 let $sel = []
 let nested = []
+let charts = null
 
 // selections
 const $container = d3.select('.repeat-models')
@@ -30,7 +31,7 @@ function setupChart(){
     .sort((a, b) => d3.descending(a.values.length, b.values.length))
     .filter(data => data.values.length > 1)
 
-  const charts = $container
+  charts = $container
     .selectAll('.model')
     .data(nested)
     .enter()
@@ -69,7 +70,7 @@ function init(){
 }
 
 function resize(){
-
+  charts.forEach(d => d.resize())
 }
 
 export default {init, resize}

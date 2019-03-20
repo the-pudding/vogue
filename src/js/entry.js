@@ -17,6 +17,7 @@ function resize() {
 		previousWidth = width;
 		graphic.resize();
 		beeswarm.resize()
+		repeats.resize()
 	}
 }
 
