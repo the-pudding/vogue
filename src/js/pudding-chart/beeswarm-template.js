@@ -22,7 +22,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 		let simulation = null;
 		let axisPadding = null;
-		let radius = 10;
+		let radius = 5;
 		const parseDate = d3.timeParse("%m/%d/%Y");
 		const formatDate = d3.timeFormat("%Y")
 
@@ -55,7 +55,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		// helper functions
 		function appendCircles(enter){
 		  let circle = enter.append('circle')
-		    .attr('r', radius)
+		    //.attr('r', radius)
 		    .attr('id', function(d) {
 		      let splitz = (d.data.file_name).split('.')[0]
 		      return `circle-id-${splitz}`
@@ -68,21 +68,23 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 			$circle = d3.selectAll('.model-circle')
 
-		 $clip = enter.append('clipPath')
+		 let clip = enter.append('clipPath')
 		    .attr('id', function(d) {
 		      let splitz = (d.data.file_name).split('.')[0]
 		      return `${splitz}-clipCircle`
 		    })
 		    .append("circle")
-		    .attr("r", radius)
+		    //.attr("r", radius)
+				.attr('class', 'clip-path')
 
+			$clip = d3.selectAll('.clip-path')
 
 		    let faces = enter.append('svg:image')
 		      .attr('xlink:href', function(d) { return `assets/images/faces200/${d.data.file_name}`})
-		      .attr('x', function(d) { return - radius;})
-		      .attr('y', function(d) { return - radius;})
-		      .attr('height', radius*2)
-		      .attr('width', radius*2)
+		      //.attr('x', function(d) { return - radius;})
+		      //.attr('y', function(d) { return - radius;})
+		      //.attr('height', radius*2)
+		      //.attr('width', radius*2)
 		      .attr('id', function(d) {
 		        let splitz = (d.data.file_name).split('.')[0]
 		        return `img-id-${splitz}`
@@ -149,6 +151,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
+
+				radius = Math.round(width * 0.01, 0)
+
+				console.log(radius)
 
 				axisPadding = height/2;
 
@@ -233,14 +239,29 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$pod = $cell
 					.selectAll('g')
 					.data(dataDef)
-					.join(enter => {
-					 const g =	enter
-							.append('g')
-							.attr('class', 'g-pods')
+					.join(
+						enter => {
+						 const g =	enter
+								.append('g')
+								.attr('class', 'g-pods')
 
-								 appendCircles(g)
-								 return g
-					})
+									 appendCircles(g)
+									 return g
+				},
+					update => {
+						const g = d3.selectAll('.g-pods')
+						$circle.attr('r', radius)
+						$clip.attr('r', radius)
+
+						$faces
+							.attr('x', d => -radius)
+							.attr('y', d => -radius)
+							.attr('height', radius*2)
+							.attr('width', radius*2)
+
+							return g
+					}
+			)
 					.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`)
 
 
