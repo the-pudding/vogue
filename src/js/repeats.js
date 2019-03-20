@@ -7,7 +7,7 @@ let nested = []
 
 // selections
 const $container = d3.select('.repeat-models')
-const $imageCont = d3.select('.repeat-models-img')
+const $imageCont = d3.select('.repeat-models-container')
 const $moreButton = d3.select('.show-more')
 
 function handleShowMoreClick() {
