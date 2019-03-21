@@ -43,7 +43,24 @@
     white-space nowrap
     background-color rgba($white, 0.95)
     justify-content center
-    display flex
+    display flex column
+
+    .repeat-models-legend
+      max-width $column-width
+      margin 0 auto
+      display flex
+      flex-direction row
+      align-items center;
+      justify-content: flex-end;
+      .legend-container
+        color $gray
+        font-family $national
+        set-type-size('x-small')
+        display flex
+        flex-direction row
+        justify-content: space-between;
+        align-items: center
+
 
     .repeat-models-container
       max-width $column-width

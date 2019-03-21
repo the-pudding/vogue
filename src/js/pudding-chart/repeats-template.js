@@ -13,6 +13,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 		let data = $sel.datum();
 
 		const $imageCont = d3.select('.repeat-models-container')
+		const $legend = d3.select('.legend-container')
 
 		// dimension stuff
 		let width = 0;
@@ -77,6 +78,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = $sel.node().offsetHeight - marginTop - marginBottom;
+
 				$svg
 					.attr('width', width + marginLeft + marginRight)
 					.attr('height', height + marginTop + marginBottom);
@@ -91,6 +93,8 @@ d3.selection.prototype.repeatModel = function init(options) {
 
 				$g.selectAll('.repeat-name')
 					.attr('transform', `translate(5, ${height / 2})`)
+
+				$legend.style('width', `${width - textPadding}px`)
 
 
 				return Chart;
