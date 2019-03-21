@@ -47,6 +47,8 @@ d3.selection.prototype.repeatModel = function init(options) {
 			const tone = $imageCont.selectAll('.img-tone')
 				.style('background-color', (d, i) => data.values[i] ? `${data.values[i].tone}` : '#FFFFFF')
 
+			const year = $imageCont.selectAll('.img-year')
+				.text((d, i) => data.values[i] ? `${data.values[i].year}` : '')
 		}
 
 		const Chart = {

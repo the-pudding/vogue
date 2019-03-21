@@ -1,10 +1,12 @@
 const parseDate = d3.timeParse("%m/%d/%Y");
+const formatYear = d3.timeFormat("%Y")
 
 function cleanData(arr){
   return arr.map((d, i) => {
     return {
       ...d,
-      date: parseDate(d.date)
+      date: parseDate(d.date),
+      year: formatYear(parseDate(d.date))
     }
   })
 }

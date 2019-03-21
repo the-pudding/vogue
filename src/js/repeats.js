@@ -56,6 +56,7 @@ function setupImageContainer(){
   const imageContainer = imageGroups.append('div').attr('class', 'img-container')
   imageContainer.append('img')
   imageGroups.append('div').attr('class', 'img-tone')
+  imageGroups.append('p').attr('class','img-year')
 }
 
 function init(){
