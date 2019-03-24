@@ -1,0 +1,15 @@
+<section class='scroll-intro'>
+  <figure class='face-grid-container'>
+    <div class='face-grid'></div>
+  </figure>
+
+  <div class='scroll-text'>
+    {{#each doc.calcSteps}}
+      <div class='step' data-step='{{{step}}}' id='step-{{{step}}}'>
+        <div class='step-text-container'>
+          <p class='step-prose'>{{{text}}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</section>
