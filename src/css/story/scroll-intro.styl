@@ -1,9 +1,14 @@
 .scroll-intro
-  margin-top 50px
+  position relative
   .face-grid-container
-    position fixed
+    position -webkit-sticky
+    position sticky
     width 100%
-    height 100%
+    height 100vh
+    bottom auto
+    top 50px
+    transform translate3d(0, 0, 0)
+    overflow-y hidden
 
     .face-grid
       display flex
@@ -13,7 +18,54 @@
       width 125px;
       flex-grow 1
       position relative
+      overflow hidden
+      .grid-cover
+        opacity 0
 
       .grid-face
         position absolute
         z-index: 10
+        opacity: 0
+        height 100%
+        width auto
+        transform translate(-10%, 5%) scale(0.5)
+        transition transform 0.5s ease-in-out, opacity 0.5s ease-in-out
+
+        &.is-visible
+          transform translate(0, 0) scale(1)
+          opacity 1
+          transition transform 0.5s ease-in-out, opacity 0.5s ease-in-out
+
+
+  .scroll-text
+    position relative
+    max-width 30rem
+    margin 0 auto
+    padding 1rem
+
+    .step
+    	margin 2rem auto
+    	opacity 0.2
+
+      &.is-active
+        opacity 1
+
+    .step-text-container
+    	background-color $white
+    	border 1px solid $gray-light
+    	box-shadow 0rem 1rem 2rem rgba($gray-light, 0.3)
+    	padding 2rem 1rem
+
+    	.step-prose
+    		text-align center
+    		font-size 1rem
+    		margin 0
+
+      .notSkin
+        background-color #C1EEFD
+        padding 0.05rem 0.25rem
+        border-radius 5px
+
+      .methodsCall
+        set-type-size('small')
+        color $gray-dark
