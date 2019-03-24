@@ -83,7 +83,12 @@ function showLightness(){
     .style('background-color', d => d3.hsl(0, 0, d.l))
 }
 
-
+function removeBGColor(){
+  $group
+    .transition()
+    .duration(500)
+    .style('background-color', '#FFFFFF')
+}
 
 function handleStepEnter(response){
   const index = response.index
@@ -93,19 +98,23 @@ function handleStepEnter(response){
   if (index === 0){
     hideCovers()
     hideFaces()
+    removeBGColor()
   }
   if (index === 1){
     showCovers()
     hideFaces()
+    removeBGColor()
   }
   if (index === 2){
     hideCovers()
     showFaces()
+    removeBGColor()
   }
   if (index === 3){
     hideCovers()
     hideFaces()
     showSkin()
+    removeBGColor()
   }
   if (index === 4){
     hideCovers()
