@@ -1,11 +1,11 @@
 .lupita
-
-  .lupitaBox
+  margin 20rem auto 0 auto
+  .lupitaBox, .anneBox
     max-width 60rem
     margin 1.5rem auto 0 auto
     display flex
     padding 2rem 0
-    flex-direction row-reverse
+    flex-direction row
     justify-content center
     flex-wrap wrap
 
@@ -26,27 +26,51 @@
       width calc(100% - 5px)
       height 1rem
 
-      &5
-        background-color #402C2C
-
-      &4
-        background-color #8F5347
-
-      &3
-        background-color #58342B
-
-      &2
-        background-color #875038
-
-      &1
-        background-color #85524F
-
-      &0
-        background-color #844930
-
     &-year
       font-family $national
       set-type-size('small')
       text-align: center;
       margin 0
       color $gray-dark
+
+  .lupitaBox
+    &-tone
+
+      &5
+        background-color #8F5347
+
+      &4
+        background-color #85524F
+
+      &3
+        background-color #875038
+
+      &2
+        background-color #844930
+
+      &1
+        background-color #58342B
+
+      &0
+        background-color #402C2C
+
+  .anneBox
+    &-tone
+
+      &5
+        background-color #E2D1C7
+
+      &4
+        background-color #F0D6C4
+
+      &3
+        background-color #ECCDC9
+
+      &2
+        background-color #EFD0C5
+
+      &1
+        background-color #F8D2BE
+
+      &0
+        background-color #F6D9CB

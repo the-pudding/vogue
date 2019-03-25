@@ -1,6 +1,8 @@
 <section class='lupita'>
   <h3 class='divider'><span>{{doc.lupitaHed}}</span></h3>
 
+
+
   <div class='lupitaBox'>
     {{#each doc.lupitaImg}}
       <div class='lupitaBox-group'>
@@ -16,4 +18,22 @@
   {{#each doc.lupita}}
     <p class='prose'>{{{value}}}</p>
   {{/each}}
+
+  <div class='anneBox'>
+    {{#each doc.anneImg}}
+      <div class='anneBox-group'>
+        <div class='img-container'>
+          <img src='assets/images/covers500/{{file}}'>
+        </div>
+        <div class='anneBox-tone anneBox-tone{{@index}}'></div>
+        <p class='anneBox-year anneBox-year{{@index}}'>{{name}} - {{year}}</p>
+      </div>
+    {{/each}}
+  </div>
+
+  {{#each doc.anne}}
+    <p class='prose'>{{{value}}}</p>
+  {{/each}}
+
+
 </section>

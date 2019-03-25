@@ -5,7 +5,6 @@ import graphic from './graphic';
 import beeswarm from './beeswarm';
 import calculations from './calculations'
 import repeats from './repeats'
-import scrollIntro from './scroll-intro'
 
 const $body = d3.select('body');
 let previousWidth = 0;
@@ -47,7 +46,6 @@ function init() {
 	graphic.init();
 	calculations.init()
 	repeats.init()
-	scrollIntro.init()
 }
 
 init();

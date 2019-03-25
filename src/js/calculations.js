@@ -77,25 +77,18 @@ function handleStepEnter(response){
   if (index === 2){
     hideCover()
     hideFaces('full')
-    showFaces('crop')
-    hideFaces('skin')
+    hideFaces('crop')
+    showFaces('skin')
     emptyBackground()
   }
   if (index === 3){
     hideCover()
     hideFaces('full')
     hideFaces('crop')
-    showFaces('skin')
-    emptyBackground()
-  }
-  if (index === 4){
-    hideCover()
-    hideFaces('full')
-    hideFaces('crop')
     hideFaces('skin')
     fillBackground()
   }
-  if (index === 5){
+  if (index === 4){
     hideCover()
     hideFaces('full')
     hideFaces('crop')
