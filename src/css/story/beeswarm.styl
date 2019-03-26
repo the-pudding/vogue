@@ -158,6 +158,29 @@
 		transition stroke 300ms ease-in-out
 		transition stroke-width 300ms ease-in-out
 
+.beeswarm-legend
+	margin 0 auto
+	display flex
+	flex-direction row
+	align-items center;
+	justify-content: flex-end;
+	.legend-container
+		color $gray
+		font-family $national
+		set-type-size('x-small')
+		display flex
+		flex-direction row
+		justify-content: space-between;
+		align-items: center
+		width 100%
+		padding 0 0.5rem
+
+		span
+			display flex
+			align-items: center
+			svg
+				height 14px
+
 
 .x.axis
 	.domain
