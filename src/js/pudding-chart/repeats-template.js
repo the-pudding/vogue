@@ -94,7 +94,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 				$g.selectAll('.repeat-name')
 					.attr('transform', `translate(5, ${height / 2})`)
 
-				$legend.style('width', `${width - textPadding}px`)
+				//$legend.style('width', `${width - textPadding}px`)
 
 
 				return Chart;

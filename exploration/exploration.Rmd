@@ -99,3 +99,18 @@ repeats <- faces %>%
   summarise(count = n())
 ```
 
+
+```{r}
+unique <- faces %>% 
+  group_by(coverFile) %>% 
+  mutate(count = n()) %>% 
+  filter(count == 1) %>% 
+  distinct(coverFile, .keep_all = TRUE) %>% 
+  distinct(model, .keep_all = TRUE)
+
+sub <- unique[sample(nrow(unique)),] %>% 
+  head(., n = 40)
+
+write.csv(sub, "../src/assets/data/unique.csv", row.names = FALSE)
+```
+
