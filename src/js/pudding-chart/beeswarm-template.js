@@ -270,8 +270,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('height', height + marginTop + marginBottom);
 				return Chart;
 			},
+			hideY(){
+				$yAxisGroup.classed('is-visible', false)
+			},
+			showY(){
+				$yAxisGroup.classed('is-visible', true)
+			},
 			swapFaces(){
-				console.log({$faces})
 				$beeswarmToggle.classed('is-visible', true);
 				d3.select('.switch input').classed('is-faces', true);
 				$faces.classed('is-visible', true);

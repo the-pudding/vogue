@@ -207,6 +207,8 @@
 		text-anchor start
 
 .y.axis
+	opacity 0
+	transition 300ms ease-in-out
 	.domain
 		display none
 	.tick
@@ -216,6 +218,9 @@
 			fill $gray-dark
 			font-family $national
 			set-type-size('x-small')
+	&.is-visible
+		opacity 1
+		transition 300ms ease-in-out
 
 .year-rect
 	fill rgba($gray-light, 0.2)

@@ -75,25 +75,32 @@ function renderStep(index) {
 		$modelImgs.classed('is-visible', false);
 		$modelImgs.classed('faded', false)
 		$modelCircles.classed('is-visible', true);
+		chart.hideY();
 	}
 	if (index === 1) {
 		chart.highlightInitTones();
+		chart.hideY();
 	}
 	if (index === 2) {
 		chart.scatterTransition();
+		chart.showY();
 	}
 	if (index === 3) {
 		chart.highlightYears();
+		chart.showY();
 	}
 	if (index === 4) {
 		chart.highlightMids()
+		chart.showY();
 	}
 	if (index === 5) {
 		chart.transitionRectangle();
 		chart.swapFaces();
+		chart.showY();
 	}
 	if (index === 6) {
 		chart.highlightLupita();
+		chart.showY();
 	}
 }
 
