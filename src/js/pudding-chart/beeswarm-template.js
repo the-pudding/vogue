@@ -301,6 +301,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr("x2", function(d) { return scaleX(0.858226769); })
 					.attr("y2", scaleY(2018) + radius*3)
 					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+
 				return Chart
 			},
 			// highlight tones
@@ -315,6 +316,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$rightLine.style('opacity', 0);
 				$circle.classed('is-visible', true);
 				$circle.classed('highlight', false);
+				d3.selectAll('.tick')
+					.classed('is-emphasized', false)
 				return Chart;
 			},
 			// scatterTransition
@@ -333,6 +336,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$yearRect.style('opacity', 0);
 				$leftLine.style('opacity', 0);
 				$rightLine.style('opacity', 0);
+
+				d3.selectAll('.tick')
+					.classed('is-emphasized', false)
+
 				return Chart
 			},
 			highlightYears(){
@@ -360,6 +367,12 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', -radius)
 					.attr('height', scaleY(2005) +  (radius * 2));
+
+				// add emphasis class on specific tick years
+				d3.selectAll('.tick')
+					.classed('is-emphasized', false)
+					.filter(d => d <= 2005)
+					.classed('is-emphasized', true)
 				return Chart
 			},
 			highlightMids() {
@@ -372,14 +385,14 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', scaleY(2006) - radius)
-					.attr('height', (scaleY(2014) - scaleY(2006)) + (radius * 2))
+					.attr('height', (scaleY(2013) - scaleY(2006)) + (radius * 2))
 				$leftLine
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
 					.attr("x1", function(d) {return scaleX(0.354117647); })
 					.attr("y1", scaleY(2006) + radius)
 					.attr("x2", function(d) { return scaleX(0.354117647); })
-					.attr("y2", scaleY(2014) + radius*3)
+					.attr("y2", scaleY(2013) + radius*3)
 					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
 				$rightLine
 					.style('opacity', 1)
@@ -387,8 +400,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr("x1", function(d) {return scaleX(0.882352941); })
 					.attr("y1", scaleY(2006) + radius)
 					.attr("x2", function(d) { return scaleX(0.882352941); })
-					.attr("y2", scaleY(2014) + radius*3)
+					.attr("y2", scaleY(2013) + radius*3)
 					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+
+				d3.selectAll('.tick')
+					.classed('is-emphasized', false)
+					.filter(d => d >= 2006 && d <= 2013)
+					.classed('is-emphasized', true)
 			},
 			transitionRectangle(){
 				$beeswarmToggle.classed('is-visible', false);
@@ -418,6 +436,11 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr("x2", function(d) { return scaleX(0.858226769); })
 					.attr("y2", scaleY(2018) + radius*3)
 					.attr('transform', `translate(0,-${axisPadding + radius*2})`)
+
+					d3.selectAll('.tick')
+						.classed('is-emphasized', false)
+						.filter(d => d >= 2014 && d <= 2018)
+						.classed('is-emphasized', true)
 			},
 			highlightLupita(){
 				$beeswarmToggle.classed('is-visible', true);
@@ -428,6 +451,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$yearRect.style('opacity', 0);
 				$leftLine.style('opacity', 0);
 				$rightLine.style('opacity', 0);
+
+				d3.selectAll('.tick')
+					.classed('is-emphasized', false)
 				return Chart
 			},
 			// update scales and render chart
