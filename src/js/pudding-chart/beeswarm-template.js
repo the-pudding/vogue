@@ -114,20 +114,20 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr('class', 'x axis')
 					.attr('transform', `translate(${marginRight},${height})`)
 
-				$darkerLabel = $xAxisGroup.append('text').text('Darker tones').attr('class','darker label')
-				$lighterLabel = $xAxisGroup.append('text').text('Lighter tones').attr('class','lighter label')
+				//$darkerLabel = $xAxisGroup.append('text').text('Darker tones').attr('class','darker label')
+				//$lighterLabel = $xAxisGroup.append('text').text('Lighter tones').attr('class','lighter label')
 
 				$yAxisGroup = $axis.append('g')
 					.attr('class', 'y axis')
 					.attr('transform', `translate(${marginLeft},${height})`)
 
-				$darkerArrow = $xAxisGroup.append('path')
-					.attr('class', 'darker-arrow')
-					.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
-
-				$lighterArrow = $xAxisGroup.append('path')
-					.attr('class', 'lighter-arrow')
-					.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
+				// $darkerArrow = $xAxisGroup.append('path')
+				// 	.attr('class', 'darker-arrow')
+				// 	.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
+				//
+				// $lighterArrow = $xAxisGroup.append('path')
+				// 	.attr('class', 'lighter-arrow')
+				// 	.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
 
 				$yearRect = $yAxisGroup.append('rect').attr('class','year-rect')
 				$leftLine = $xAxisGroup.append('line').attr('class', 'range-line')
@@ -210,12 +210,12 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.attr("height", scaleY(2005) +  (radius * 2))
 					//.attr('transform',  `translate(0, ${-radius})`)
 
-				$darkerLabel.attr('transform', `translate(${marginLeft + 7},${height/2 + marginBottom - 4})`)
-				$lighterLabel.attr('transform', `translate(${width - marginRight - 7},${height/2 + marginBottom - 4})`)
-
-				$darkerArrow.attr('transform', `translate(${marginLeft},${(height/2) + marginBottom - 8}) rotate(-90)`);
-
-				$lighterArrow.attr('transform', `translate(${width - marginRight},${(height/2) + marginBottom - 8}) rotate(90)`);
+				// $darkerLabel.attr('transform', `translate(${marginLeft + 7},${height/2 + marginBottom - 4})`)
+				// $lighterLabel.attr('transform', `translate(${width - marginRight - 7},${height/2 + marginBottom - 4})`)
+				//
+				// $darkerArrow.attr('transform', `translate(${marginLeft},${(height/2) + marginBottom - 8}) rotate(-90)`);
+				//
+				// $lighterArrow.attr('transform', `translate(${width - marginRight},${(height/2) + marginBottom - 8}) rotate(90)`);
 
 				// collision
 				simulation = d3.forceSimulation(data)
