@@ -49,6 +49,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		let $darkerArrow = null;
 		let $lighterArrow = null;
 		let $yearRect = null;
+		let $bgRect = null;
 		let $leftLine = null;
 		let $rightLine = null;
 
@@ -128,7 +129,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				// $lighterArrow = $xAxisGroup.append('path')
 				// 	.attr('class', 'lighter-arrow')
 				// 	.attr('d', d3.symbol().type(d3.symbolTriangle).size(32))
-
+				$bgRect = $yAxisGroup.append('rect').attr('class', 'bg-rect')
 				$yearRect = $yAxisGroup.append('rect').attr('class','year-rect')
 				$leftLine = $xAxisGroup.append('line').attr('class', 'range-line')
 				$rightLine = $xAxisGroup.append('line').attr('class', 'range-line')
@@ -203,11 +204,20 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 						.attr('transform', `translate(0,-${axisPadding + radius*2})`)
 
 				//bg rectangle
-				$yearRect
+				$bgRect
 					.attr("x", 0)
 					.attr("y", -radius)
 					.attr("width", width)
 					.attr("height", scaleY(2005) +  (radius * 2))
+
+				$yearRect
+					.attr("x", scaleX(0.44248366))
+					.attr("y", -radius)
+					.attr("width", scaleX(0.855555556) - scaleX(0.44248366))
+					.attr("height", scaleY(2005) +  (radius * 2))
+					.attr('transform', `translate(${-(marginLeft - (padding / 2))}, 0)`)
+
+
 					//.attr('transform',  `translate(0, ${-radius})`)
 
 				// $darkerLabel.attr('transform', `translate(${marginLeft + 7},${height/2 + marginBottom - 4})`)
@@ -285,6 +295,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$faces.classed('highlight', false);
 				$faces.classed('faded', false);
 				$yearRect.style('opacity', 1);
+				$bgRect.style('opacity', 1)
 				$leftLine
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -312,6 +323,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$faces.classed('is-visible', false)
 				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 				$yearRect.style('opacity', 0);
+				$bgRect.style('opacity', 0)
 				$leftLine.style('opacity', 0);
 				$rightLine.style('opacity', 0);
 				$circle.classed('is-visible', true);
@@ -334,6 +346,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.ease(d3.easeLinear)
 					.attr('transform', d => `translate(${d.data.x}, ${scaleY(d.data.year)})`)
 				$yearRect.style('opacity', 0);
+				$bgRect.style('opacity', 0);
 				$leftLine.style('opacity', 0);
 				$rightLine.style('opacity', 0);
 
@@ -366,6 +379,14 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', -radius)
+					.attr('height', scaleY(2005) +  (radius * 2))
+					.attr("x", scaleX(0.44248366))
+					.attr("width", scaleX(0.855555556) - scaleX(0.44248366))
+
+				$bgRect
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr('y', -radius)
 					.attr('height', scaleY(2005) +  (radius * 2));
 
 				// add emphasis class on specific tick years
@@ -386,6 +407,15 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', scaleY(2006) - radius)
 					.attr('height', (scaleY(2013) - scaleY(2006)) + (radius * 2))
+					.attr("x", scaleX(0.354117647))
+					.attr("width", scaleX(0.882352941) - scaleX(0.354117647))
+
+				$bgRect
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr('y', scaleY(2006) - radius)
+					.attr('height', (scaleY(2013) - scaleY(2006)) + (radius * 2))
+
 				$leftLine
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)
@@ -420,6 +450,15 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.transition(1000).ease(d3.easeLinear)
 					.attr('y', scaleY(2014) - radius)
 					.attr('height', (scaleY(2018) - scaleY(2014)) + (radius * 2))
+					.attr("x", scaleX(0.212745098))
+					.attr("width", scaleX(0.858226769) - scaleX(0.212745098))
+
+				$bgRect
+					.style('opacity', 1)
+					.transition(1000).ease(d3.easeLinear)
+					.attr('y', scaleY(2014) - radius)
+					.attr('height', (scaleY(2018) - scaleY(2014)) + (radius * 2))
+
 				$leftLine
 					.style('opacity', 1)
 					.transition(1000).ease(d3.easeLinear)

@@ -185,6 +185,7 @@
 
 .x.axis
 	.domain
+		display none
 		stroke $gray-light
 		fill none !important
 	.tick
@@ -226,9 +227,12 @@
 		transition 300ms ease-in-out
 
 .year-rect
-	fill rgba($gray-light, 0.2)
+	fill rgba($black, 0.025)
 	opacity 0
 	transition opacity 300ms ease-in-out
+
+.bg-rect
+	fill rgba($black, 0.025)
 
 .range-line
 	stroke $gray-dark
