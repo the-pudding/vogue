@@ -199,19 +199,34 @@ function handleModelHovers() {
 		else if ($switch.node().checked == false) {
 			$modelCircles.classed('highlight', false)
 			if (this.id == 'nyongo-button') {
-				d3.select('#circle-id-208_01_2018_0').classed('highlight', true)
+				const nyongo = d3.select('#img-id-208_01_2018_0')
+				nyongo.classed('highlight', true)
+				nyongo.classed('is-visible', true)
+				nyongo.classed('faded', false)
 			}
 			if (this.id == 'hathaway-button') {
-				d3.select('#circle-id-200_11_2010_0').classed('highlight', true)
+				const hathaway = d3.select('#img-id-200_11_2010_0')
+				hathaway.classed('highlight', true)
+				hathaway.classed('is-visible', true)
+				hathaway.classed('faded', false)
 			}
 			if (this.id == 'jones-button') {
-				d3.select('#circle-id-191_01_2001_0').classed('highlight', true)
+				const jones = d3.select('#img-id-191_01_2001_0')
+				jones.classed('highlight', true)
+				jones.classed('is-visible', true)
+				jones.classed('faded', false)
 			}
 			if (this.id == 'berry-button') {
-				d3.select('#circle-id-192_12_2002_0').classed('highlight', true)
+				const berry = d3.select('#img-id-192_12_2002_0')
+				berry.classed('highlight', true)
+				berry.classed('is-visible', true)
+				berry.classed('faded', false)
 			}
 			if (this.id == 'kebede-button') {
-				d3.select('#circle-id-195_05_2005_0').classed('highlight', true)
+				const kedebe = d3.select('#img-id-195_05_2005_0')
+				kedebe.classed('highlight', true)
+				kedebe.classed('is-visible', true)
+				kedebe.classed('faded', false)
 			}
 			if (this.id == 'nyongo-all-button') {
 				d3.selectAll('.model-circle-Lupita-Nyongo').classed('highlight', true)
@@ -225,6 +240,9 @@ function handleModelHovers() {
 		}
 		else if ($switch.node().checked == false) {
 			$modelCircles.classed('highlight', false)
+			$modelImgs.classed('is-visible', false)
+			$modelImgs.classed('highlight', false)
+			console.log({$modelImgs})
 		}
 	})
 }
