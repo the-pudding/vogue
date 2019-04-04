@@ -16,7 +16,8 @@ const beeswarmScroller = scrollama();
 
 // selections
 const $scrollContainer = d3.select('.scroll')
-const $beeswarmChart = $scrollContainer.select('.scroll__graphic')
+const $chartContainer = $scrollContainer.select('.scroll__graphic')
+const $beeswarmChart = $chartContainer.select('.graphic__only')
 const $scrollText = $scrollContainer.select('.scroll__text')
 const $step = $scrollText.selectAll('.step')
 const $modelDropdown = d3.select('#model-dropdown')
@@ -54,6 +55,7 @@ function loadFaces(){
 }
 
 function setupChart() {
+	console.log($beeswarmChart)
 	chart = $beeswarmChart
 		.datum(data)
 		.beeswarmChart()
@@ -262,7 +264,6 @@ function resize() {
 	const chartMargin = 32;
 	const textWidth = $scrollText.node().offsetWidth;
 	const chartWidth = $beeswarmChart.node().offsetWidth - textWidth - chartMargin;
-
 
 	// 3. tell scrollama to update new element dimensions
 	beeswarmScroller.resize();

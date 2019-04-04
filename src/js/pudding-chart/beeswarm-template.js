@@ -19,6 +19,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		const marginLeft = 32;
 		const marginRight = 16;
 		const padding = 16;
+		const containerPadding = 160
 
 		let simulation = null;
 		let axisPadding = null;
@@ -149,9 +150,16 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			// on resize, update new dimensions
 			resize() {
+				// find height of non-chart elements
+				const containerHeight = d3.select('.scroll__graphic').node().offsetHeight
+				const controlHeight = d3.select('.scroll__controls').node().offsetHeight
+				const legendHeight = d3.select('.beeswarm-legend').node().offsetHeight
+				console.log({containerHeight, controlHeight, legendHeight})
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
-				height = $sel.node().offsetHeight - marginTop - marginBottom;
+				height = (containerHeight - controlHeight - legendHeight - containerPadding) - marginTop - marginBottom;
+				console.log({width, height})
+
 
 				radius = Math.round(width * 0.01, 0)
 
@@ -245,6 +253,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.y(function(d) { return d.y; })
 					.polygons(data)
 
+				console.log($cell)
+
 				// for make circles
 				$pod = $cell
 					.selectAll('g')
@@ -273,7 +283,9 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					}
 			)
 					.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`)
+					console.log(height)
 
+					console.log({$svg})
 
 				$svg
 					.attr('width', width + marginRight)
