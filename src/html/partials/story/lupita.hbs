@@ -1,8 +1,11 @@
 <section class='lupita'>
   <h3 class='divider'><span>{{doc.lupitaHed}}</span></h3>
 
+  {{#each doc.lupita}}
+    <p class='prose'>{{{value}}}</p>
+  {{/each}}
 
-
+  <h3 class='highlightLabel'>Darkest Cover Models</h3>
   <div class='lupitaBox'>
     {{#each doc.lupitaImg}}
       <div class='lupitaBox-group'>
@@ -15,10 +18,7 @@
     {{/each}}
   </div>
 
-  {{#each doc.lupita}}
-    <p class='prose'>{{{value}}}</p>
-  {{/each}}
-
+  <h3 class='highlightLabel'>Lightest Cover Models</h3>
   <div class='anneBox'>
     {{#each doc.anneImg}}
       <div class='anneBox-group'>
