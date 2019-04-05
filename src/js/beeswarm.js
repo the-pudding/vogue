@@ -8,6 +8,8 @@ const dataFile = 'assets/data/faces.csv';
 let data = null;
 let modelData = [];
 let chart = null;
+let bodyWidth = null
+let mobile = 480
 
 const parseDate = d3.timeParse("%m/%d/%Y");
 const formatDate = d3.timeFormat("%Y")
@@ -160,18 +162,37 @@ function handleDropdown() {
 	const value = this.options[this.selectedIndex].text;
 	const combinedName = value.replace(' ', '-')
 
-	// clear selections
-	$modelCircles.classed('highlight', false)
-	$modelImgs.classed('faded', false)
-	$modelImgs.classed('highlight', false)
+	if (value == "All models"){
+		$modelCircles.classed('highlight', false)
+		$modelImgs.classed('faded', false)
+		$modelImgs.classed('highlight', false)
+		$modelCircles.style('opacity', 1)
+	}
 
-	if ($switch.node().checked == true) {
-		$modelImgs.classed('faded', true)
-		d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+	else {
+		// clear selections
+		$modelCircles.classed('highlight', false)
+		$modelImgs.classed('faded', false)
+		$modelImgs.classed('highlight', false)
+
+		if (bodyWidth >= mobile){
+			if ($switch.node().checked == true) {
+				$modelImgs.classed('faded', true)
+				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+			}
+			else if ($switch.node().checked == false) {
+				//$modelImgs.classed('faded', true)
+				$modelCircles.style('opacity', 0.3)
+				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+				//d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+			}
+		}
+
+		else d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+
 	}
-	else if ($switch.node().checked == false) {
-		d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
-	}
+
+
 }
 
 function handleModelHovers() {
@@ -255,7 +276,7 @@ function resize() {
 	$step.style('height', stepHeight + 'px');
 
 	// 2. update width/height of graphic element
-	const bodyWidth = d3.select('body').node().offsetWidth;
+	bodyWidth = d3.select('body').node().offsetWidth;
 
 	// $beeswarmChart
 	// 	.style('width', bodyWidth + 'px')
