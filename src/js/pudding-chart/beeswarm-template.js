@@ -20,6 +20,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		const marginRight = 16;
 		const padding = 16;
 		const containerPadding = 160
+		const mobile = 500
 
 		let simulation = null;
 		let axisPadding = null;
@@ -154,16 +155,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				const containerHeight = d3.select('.scroll__graphic').node().offsetHeight
 				const controlHeight = d3.select('.scroll__controls').node().offsetHeight
 				const legendHeight = d3.select('.beeswarm-legend').node().offsetHeight
-				console.log({containerHeight, controlHeight, legendHeight})
+
 				// defaults to grabbing dimensions from container element
 				width = $sel.node().offsetWidth - marginLeft - marginRight;
 				height = (containerHeight - controlHeight - legendHeight - containerPadding) - marginTop - marginBottom;
-				console.log({width, height})
 
 
 				radius = Math.round(width * 0.01, 0)
-
-				console.log(radius)
 
 				axisPadding = height/2;
 
@@ -253,8 +251,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					.y(function(d) { return d.y; })
 					.polygons(data)
 
-				console.log($cell)
-
 				// for make circles
 				$pod = $cell
 					.selectAll('g')
@@ -283,9 +279,6 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					}
 			)
 					.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`)
-					console.log(height)
-
-					console.log({$svg})
 
 				$svg
 					.attr('width', width + marginRight)
@@ -299,13 +292,24 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$yAxisGroup.classed('is-visible', true)
 			},
 			swapFaces(){
-				$beeswarmToggle.classed('is-visible', true);
-				d3.select('.switch input').classed('is-faces', true);
-				$faces.classed('is-visible', true);
-				$circle.classed('is-visible', false);
-				$circle.classed('highlight', false);
-				$faces.classed('highlight', false);
-				$faces.classed('faded', false);
+				if (width >= mobile) {
+					$beeswarmToggle.classed('is-visible', true);
+					d3.select('.switch input').classed('is-faces', true);
+					$faces.classed('is-visible', true);
+					$circle.classed('is-visible', false);
+					$circle.classed('highlight', false);
+					$faces.classed('highlight', false);
+					$faces.classed('faded', false);
+				}
+				else {
+					$beeswarmToggle.classed('is-visible', false);
+					$faces.classed('highlight', false)
+					$faces.classed('is-visible', false)
+					$circle.classed('is-visible', true);
+					$circle.classed('highlight', false);
+					$circle.style('opacity', 1)
+				}
+
 				$yearRect.style('opacity', 1);
 				$bgRect.style('opacity', 1)
 				$leftLine
@@ -494,11 +498,27 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 						.classed('is-emphasized', true)
 			},
 			highlightLupita(){
-				$beeswarmToggle.classed('is-visible', true);
-				$faces.classed('highlight', false)
-				$faces.classed('faded', true)
-				$circle.classed('is-visible', false);
-				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+				if (width >= mobile) {
+					$beeswarmToggle.classed('is-visible', true);
+					d3.select('.switch input').classed('is-faces', true);
+					$faces.classed('is-visible', true);
+					$circle.classed('is-visible', false);
+					$circle.classed('highlight', false);
+					$faces.classed('highlight', false);
+					$faces.classed('faded', true);
+					d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+				}
+				else {
+					$beeswarmToggle.classed('is-visible', false);
+					$faces.classed('highlight', false)
+					$faces.classed('is-visible', false)
+					$circle.classed('is-visible', true);
+					$circle.classed('highlight', false);
+					$circle.style('opacity', 0.3)
+					d3.selectAll('.model-circle-Lupita-Nyongo').style('opacity', 1)
+				}
+
+				//d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
 				$yearRect.style('opacity', 0);
 				$leftLine.style('opacity', 0);
 				$rightLine.style('opacity', 0);
