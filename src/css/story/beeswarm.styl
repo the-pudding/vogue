@@ -5,7 +5,8 @@
 	position sticky
 	padding 5rem 1rem
 	width 100%
-	height 500px
+	height 100vh
+	max-height 800px
 	top 0
 	left 0
 	bottom auto
@@ -97,6 +98,7 @@
 	padding 0 1rem
 	margin 0 auto
 	max-width 30rem
+	pointer-events none
 	//width 33%
 
 .step
@@ -114,11 +116,21 @@
 		font-size 1rem
 		margin 0
 
+		.desktopOnly
+			display none
+			+mq('bp-3')
+				display block
+		.mobileOnly
+			display block
+			+mq('bp-3')
+				display none
+
 .scroll-button
 	background-color rgba($gray-light, 0.3)
 	padding 0.125rem 0.25rem
 	border-radius 0.25rem
 	white-space nowrap
+	pointer-events all
 	&:hover
 		background-color rgba($gray-light, 0.5)
 
