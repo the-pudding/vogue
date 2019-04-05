@@ -20,7 +20,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		const marginRight = 16;
 		const padding = 16;
 		const containerPadding = 160
-		const mobile = 500
+		const mobile = 480
 
 		let simulation = null;
 		let axisPadding = null;
@@ -499,6 +499,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			highlightLupita(){
 				if (width >= mobile) {
+
+					$beeswarmToggle.classed('is-visible', true);
+				$faces.classed('highlight', false)
+				$faces.classed('faded', true)
+				$circle.classed('is-visible', false);
+				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+
 					$beeswarmToggle.classed('is-visible', true);
 					d3.select('.switch input').classed('is-faces', true);
 					$faces.classed('is-visible', true);
