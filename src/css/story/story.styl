@@ -28,10 +28,40 @@ section
     height 1px
     position relative
     vertical-align: middle;
-    width 15rem
+    width 30%
   &:before
     right 0.5em
     margin-left -15rem
   &:after
     left 0.5em
     margin-right -15rem
+
+.divider-wrapper
+  margin 8rem auto 0 auto
+  max-width $column-width
+  padding 0 1rem
+
+  .divider-line
+    border-top 1px solid $gray
+    width 100%
+
+  .divider-text
+    width 100%
+    position relative
+    top -1.4rem
+    h3
+      text-align center
+      font-family $national
+      text-transform uppercase
+      font-size 16px
+      font-weight 700
+      width 13rem
+      margin 0 auto
+      color $white
+      background-color $off-black
+      border 10px solid $white
+
+a
+  &:hover
+    color $gray-dark
+    border-bottom 1px solid $gray-dark      

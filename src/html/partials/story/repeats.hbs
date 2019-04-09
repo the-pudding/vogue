@@ -1,6 +1,9 @@
 <section class='repeat'>
 
-  <h3 class='divider'><span>{{doc.repeatHed}}</span></h3>
+  <div class='divider-wrapper'>
+    <div class='divider-line'></div>
+    <div class='divider-text'><h3>{{doc.repeatHed}}</h3></div>
+  </div>
 
   {{#each doc.repeat}}
     <p class='prose'>{{{value}}}</p>

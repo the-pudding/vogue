@@ -1,5 +1,8 @@
 <section class='conclusion'>
-  <h3 class='divider'><span>{{doc.conclusionHed}}</span></h3>
+  <div class='divider-wrapper'>
+    <div class='divider-line'></div>
+    <div class='divider-text'><h3>{{doc.conclusionHed}}</h3></div>
+  </div>
 
   {{#each doc.conclusion}}
     <p class='prose'>{{{value}}}</p>

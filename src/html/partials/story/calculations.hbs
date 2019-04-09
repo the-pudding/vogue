@@ -1,5 +1,8 @@
 <section class='calculations'>
-  <h3 class='divider'><span>{{doc.calcHed}}</span></h3>
+  <div class='divider-wrapper'>
+    <div class='divider-line'></div>
+    <div class='divider-text'><h3>{{doc.calcHed}}</h3></div>
+  </div>
 
   {{#each doc.calculationIntro}}
     <p class='prose'>{{{value}}}</p>
