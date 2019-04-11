@@ -23,11 +23,16 @@
 		.model-search
 			display flex
 			flex-direction row
+			display none
 
 			#model-dropdown
 				margin-left 0.5rem
 				height 1.5rem
 				width 10rem
+
+			&.is-visible
+				display flex
+
 
 		.model-search p, .img-toggle p
 			font-family $national

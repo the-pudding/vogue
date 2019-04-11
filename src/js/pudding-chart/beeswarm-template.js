@@ -34,6 +34,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 
 		// dom elements
 		const $beeswarmToggle = d3.selectAll('.img-toggle')
+		const $searchBar = d3.selectAll('.model-search')
 		let $svg = null;
 		let $axis = null;
 		let $vis = null;
@@ -292,6 +293,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$yAxisGroup.classed('is-visible', true)
 			},
 			swapFaces(){
+				$searchBar.classed('is-visible', true)
 				if (width >= mobile) {
 					$beeswarmToggle.classed('is-visible', true);
 					d3.select('.switch input').classed('is-faces', true);
@@ -334,6 +336,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			// highlight tones
 			highlightInitTones() {
 				$beeswarmToggle.classed('is-visible', false);
+				$searchBar.classed('is-visible', false)
 				$faces.classed('faded', false)
 				$faces.classed('highlight', false)
 				$faces.classed('is-visible', false)
@@ -351,6 +354,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			// scatterTransition
 			scatterTransition(){
 				$beeswarmToggle.classed('is-visible', false);
+				$searchBar.classed('is-visible', false)
 				$faces.classed('highlight', false)
 				$faces.classed('is-visible', false)
 				$circle.classed('is-visible', true);
@@ -372,7 +376,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			highlightYears(){
-				$beeswarmToggle.classed('is-visible', true);
+				$beeswarmToggle.classed('is-visible', false);
+				$searchBar.classed('is-visible', false)
 				$circle.classed('is-visible', true);
 				$circle.classed('highlight', false);
 				$leftLine
@@ -414,6 +419,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			highlightMids() {
 				$beeswarmToggle.classed('is-visible', false);
+				$searchBar.classed('is-visible', false)
 				$faces.classed('highlight', false)
 				$faces.classed('is-visible', false)
 				$circle.classed('is-visible', true);
@@ -456,6 +462,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 			},
 			transitionRectangle(){
 				$beeswarmToggle.classed('is-visible', false);
+				$searchBar.classed('is-visible', false)
 				$faces.classed('highlight', false)
 				$faces.classed('faded', false)
 				$faces.classed('is-visible', true)
@@ -498,9 +505,10 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 						.classed('is-emphasized', true)
 			},
 			highlightLupita(){
+				$searchBar.classed('is-visible', true)
 				if (width >= mobile) {
 
-					$beeswarmToggle.classed('is-visible', true);
+				$beeswarmToggle.classed('is-visible', true)
 				$faces.classed('highlight', false)
 				$faces.classed('faded', true)
 				$circle.classed('is-visible', false);

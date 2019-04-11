@@ -64,6 +64,7 @@ function setupChart() {
 
 	$modelImgs = d3.selectAll('.model-img')
 	$modelCircles = d3.selectAll('.model-circle')
+	$switch.node().checked = true
 }
 
 function handleStepEnter(response) {
@@ -131,6 +132,7 @@ function setupDropdown() {
 }
 
 function handleToggle() {
+	//$switch.node().checked = !$switch.node().checked
 	const value = $modelDropdown.node().options[$modelDropdown.node().selectedIndex].text;
 	const combinedName = value.replace(' ', '-')
 	const faces = $switch.classed('is-faces')
@@ -174,6 +176,7 @@ function handleDropdown() {
 		$modelCircles.classed('highlight', false)
 		$modelImgs.classed('faded', false)
 		$modelImgs.classed('highlight', false)
+		console.log($switch.node().checked)
 
 		if (bodyWidth >= mobile){
 			if ($switch.node().checked == true) {
