@@ -107,6 +107,11 @@ function renderStep(index) {
 		chart.highlightLupita();
 		chart.showY();
 	}
+	if (index === 7) {
+		$modelImgs.classed('is-visible', true);
+		$modelImgs.classed('faded', false)
+		$modelCircles.classed('is-visible', false);
+	}
 }
 
 function setupScroll() {

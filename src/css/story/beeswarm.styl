@@ -131,6 +131,13 @@
 			+mq('bp-3')
 				display none
 
+		.explore
+			font-family $national
+			set-type-size('small')
+			color $gray-dark
+			display block
+			margin-top 2rem
+
 .scroll-button
 	background-color rgba($gray-light, 0.3)
 	padding 0.125rem 0.25rem
@@ -149,6 +156,9 @@
 
 .step.is-active
 	opacity 1
+
+.step.is-active.step-hidden, .step.step-hidden
+	opacity 0
 
 // beeswarm
 .model-img
