@@ -133,29 +133,36 @@ function setupDropdown() {
 
 function handleToggle() {
 	//$switch.node().checked = !$switch.node().checked
+	console.log($switch.node().checked)
 	const value = $modelDropdown.node().options[$modelDropdown.node().selectedIndex].text;
 	const combinedName = value.replace(' ', '-')
 	const faces = $switch.classed('is-faces')
 	if (combinedName == 'All-models') {
-		$switch.classed('is-faces', !faces);
-		$modelImgs.classed('is-visible', !faces);
-		$modelImgs.classed('faded', !faces);
-		$modelImgs.classed('highlight', !faces);
-		$modelCircles.classed('is-visible', faces);
-		$modelCircles.classed('highlight', !faces);
+			$switch.classed('is-faces', !faces);
+			$modelImgs.classed('is-visible', !faces);
+			$modelImgs.classed('faded', !faces);
+			$modelImgs.classed('highlight', !faces);
+			$modelCircles.classed('is-visible', faces);
+			$modelCircles.classed('faded', false)
+			$modelCircles.classed('highlight', false);
 	} else {
 		if ($switch.node().checked == true) {
+			$switch.classed('is-faces', false)
 			$modelImgs.classed('highlight', false)
-			$modelImgs.classed('faded', true)
-			$modelCircles.classed('is-visible', faces);
+			$modelImgs.classed('faded', false)
+			$modelImgs.classed('is-visible', false)
+			$modelCircles.classed('is-visible', true)
+			$modelCircles.classed('faded', true)
 			d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
 		}
 		else if ($switch.node().checked == false) {
+			$switch.classed('is-faces', true)
 			$modelCircles.classed('highlight', false)
-			$modelCircles.classed('is-visible', !faces)
-			$modelImgs.classed('faded', false)
+			$modelCircles.classed('is-visible', false)
+			$modelImgs.classed('faded', true)
 			$modelImgs.classed('highlight', false)
-			d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+			$modelImgs.classed('is-visible', false)
+			d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
 		}
 	}
 }
@@ -165,10 +172,24 @@ function handleDropdown() {
 	const combinedName = value.replace(' ', '-')
 
 	if (value == "All models"){
-		$modelCircles.classed('highlight', false)
-		$modelImgs.classed('faded', false)
-		$modelImgs.classed('highlight', false)
-		$modelCircles.style('opacity', 1)
+		// $modelCircles.classed('highlight', false)
+		// $modelImgs.classed('faded', false)
+		// $modelImgs.classed('highlight', false)
+		// $modelCircles.style('opacity', 1)
+
+		if (bodyWidth >= mobile){
+			if ($switch.node().checked == true) {
+				$modelImgs.classed('is-visible', false)
+				$modelCircles.classed('is-visible', true)
+				$modelCircles.classed('faded', false)
+			}
+			else if ($switch.node().checked == false) {
+				//$modelImgs.classed('faded', true)
+				$modelImgs.classed('is-visible', true)
+				$modelCircles.classed('is-visible', false)
+				$modelImgs.classed('faded', false)
+			}
+		}
 	}
 
 	else {
@@ -180,13 +201,18 @@ function handleDropdown() {
 
 		if (bodyWidth >= mobile){
 			if ($switch.node().checked == true) {
-				$modelImgs.classed('faded', true)
+				$modelImgs.classed('is-visible', false)
+				//$modelCircles.classed('is-visible', true)
+				$modelCircles.classed('faded', true)
 				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
 			}
 			else if ($switch.node().checked == false) {
 				//$modelImgs.classed('faded', true)
-				$modelCircles.style('opacity', 0.3)
+				$modelImgs.classed('is-visible', true)
+				$modelCircles.classed('is-visible', false)
+				$modelImgs.classed('faded', true)
 				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+
 				//d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
 			}
 		}
