@@ -226,26 +226,28 @@ function handleDropdown() {
 
 function handleModelHovers() {
 	$scrollButton.on('mouseover', function() {
-		if ($switch.node().checked == true){
-			$modelImgs.classed('faded', true)
+		if ($switch.node().checked == true  || bodyWidth <= mobile){
+			$modelImgs.classed('faded', false)
 			$modelImgs.classed('highlight', false)
+			$modelImgs.classed('is-visible', false)
+			$modelCircles.classed('is-visible', true)
 			if (this.id == 'nyongo-button') {
-				d3.select('#img-id-208_01_2018_0').classed('highlight', true)
+				d3.select('#circle-id-208_01_2018_0').classed('highlight', true)
 			}
 			if (this.id == 'hathaway-button') {
-				d3.select('#img-id-200_11_2010_0').classed('highlight', true)
+				d3.select('#circle-id-200_11_2010_0').classed('highlight', true)
 			}
 			if (this.id == 'jones-button') {
-				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
+				d3.select('#circle-id-191_01_2001_0').classed('highlight', true)
 			}
 			if (this.id == 'berry-button') {
-				d3.select('#img-id-192_12_2002_0').classed('highlight', true)
+				d3.select('#circle-id-192_12_2002_0').classed('highlight', true)
 			}
 			if (this.id == 'kebede-button') {
-				d3.select('#img-id-195_05_2005_0').classed('highlight', true)
+				d3.select('#circle-id-195_05_2005_0').classed('highlight', true)
 			}
 			if (this.id == 'nyongo-all-button') {
-				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+				d3.selectAll('.model-circle-Lupita-Nyongo').classed('highlight', true)
 			}
 		}
 		else if ($switch.node().checked == false) {
