@@ -143,7 +143,7 @@ function handleToggle() {
 			$modelImgs.classed('faded', !faces);
 			$modelImgs.classed('highlight', !faces);
 			$modelCircles.classed('is-visible', faces);
-			$modelCircles.classed('faded', false)
+			//$modelCircles.classed('faded', false)
 			$modelCircles.classed('highlight', false);
 	} else {
 		if ($switch.node().checked == true) {
@@ -152,7 +152,7 @@ function handleToggle() {
 			$modelImgs.classed('faded', false)
 			$modelImgs.classed('is-visible', false)
 			$modelCircles.classed('is-visible', true)
-			$modelCircles.classed('faded', true)
+			//$modelCircles.classed('faded', true)
 			d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
 		}
 		else if ($switch.node().checked == false) {
@@ -172,10 +172,6 @@ function handleDropdown() {
 	const combinedName = value.replace(' ', '-')
 
 	if (value == "All models"){
-		// $modelCircles.classed('highlight', false)
-		// $modelImgs.classed('faded', false)
-		// $modelImgs.classed('highlight', false)
-		// $modelCircles.style('opacity', 1)
 
 		if (bodyWidth >= mobile){
 			if ($switch.node().checked == true) {
@@ -203,7 +199,7 @@ function handleDropdown() {
 			if ($switch.node().checked == true) {
 				$modelImgs.classed('is-visible', false)
 				//$modelCircles.classed('is-visible', true)
-				$modelCircles.classed('faded', true)
+				//$modelCircles.classed('faded', true)
 				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
 			}
 			else if ($switch.node().checked == false) {
@@ -226,7 +222,7 @@ function handleDropdown() {
 
 function handleModelHovers() {
 	$scrollButton.on('mouseover', function() {
-		if ($switch.node().checked == true  || bodyWidth <= mobile){
+		if ($switch.node().checked == true  && bodyWidth <= mobile){
 			$modelImgs.classed('faded', false)
 			$modelImgs.classed('highlight', false)
 			$modelImgs.classed('is-visible', false)
@@ -246,8 +242,26 @@ function handleModelHovers() {
 			if (this.id == 'kebede-button') {
 				d3.select('#circle-id-195_05_2005_0').classed('highlight', true)
 			}
-			if (this.id == 'nyongo-all-button') {
-				d3.selectAll('.model-circle-Lupita-Nyongo').classed('highlight', true)
+		}
+		else if ($switch.node().checked == true  && bodyWidth >= mobile){
+			$modelImgs.classed('faded', false)
+			$modelImgs.classed('highlight', false)
+			$modelImgs.classed('is-visible', false)
+			$modelCircles.classed('is-visible', true)
+			if (this.id == 'nyongo-button') {
+				d3.select('#img-id-208_01_2018_0').classed('highlight', true)
+			}
+			if (this.id == 'hathaway-button') {
+				d3.select('#img-id-200_11_2010_0').classed('highlight', true)
+			}
+			if (this.id == 'jones-button') {
+				d3.select('#img-id-191_01_2001_0').classed('highlight', true)
+			}
+			if (this.id == 'berry-button') {
+				d3.select('#img-id-192_12_2002_0').classed('highlight', true)
+			}
+			if (this.id == 'kebede-button') {
+				d3.select('#img-id-195_05_2005_0').classed('highlight', true)
 			}
 		}
 		else if ($switch.node().checked == false) {
@@ -282,21 +296,18 @@ function handleModelHovers() {
 				kedebe.classed('is-visible', true)
 				kedebe.classed('faded', false)
 			}
-			if (this.id == 'nyongo-all-button') {
-				d3.selectAll('.model-circle-Lupita-Nyongo').classed('highlight', true)
-			}
 		}
 	})
 	$scrollButton.on('mouseout', function() {
 		if ($switch.node().checked == true) {
 			$modelImgs.classed('faded', false)
 			$modelImgs.classed('highlight', false)
+			$modelCircles.classed('highlight', false)
 		}
 		else if ($switch.node().checked == false) {
 			$modelCircles.classed('highlight', false)
 			$modelImgs.classed('is-visible', false)
 			$modelImgs.classed('highlight', false)
-			console.log({$modelImgs})
 		}
 	})
 }
