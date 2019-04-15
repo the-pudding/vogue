@@ -118,7 +118,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 				modelName.append('tspan')
 					.attr('class', 'repeat-num')
 					.text(function(data) {
-						if (data.key === "Gisele Bundchen") {
+						if (data.key === "Gisele Bündchen") {
 							return` (${data.values.length} covers)`
 						} else {
 							return` (${data.values.length})`
@@ -128,7 +128,7 @@ d3.selection.prototype.repeatModel = function init(options) {
 
 
 				Chart.resize()
-				if (data.key === "Gisele Bundchen") handleClick()
+				if (data.key === "Gisele Bündchen") handleClick()
 				return Chart;
 			},
 			// get / set data
