@@ -71,10 +71,10 @@ function handleStepEnter(response) {
 	// response = { element, direction, index }
 	$step.classed('is-active', (d, i) => i === response.index);
 
-	renderStep(response.index);
+	renderStep(response.index, response.direction);
 }
 
-function renderStep(index) {
+function renderStep(index, direction) {
 	if (index === 0) {
 		$switch.node().checked = false
 		$modelImgs.classed('is-visible', false);
@@ -83,7 +83,7 @@ function renderStep(index) {
 		chart.hideY();
 	}
 	if (index === 1) {
-		chart.highlightInitTones();
+		chart.highlightInitTones(direction);
 		chart.hideY();
 	}
 	if (index === 2) {
