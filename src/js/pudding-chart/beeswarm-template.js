@@ -333,13 +333,13 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				return Chart
 			},
 			// highlight tones
-			highlightInitTones() {
+			highlightInitTones(direction) {
 				$beeswarmToggle.classed('is-visible', false);
 				$searchBar.classed('is-visible', false)
 				$faces.classed('faded', false)
 				$faces.classed('highlight', false)
 				$faces.classed('is-visible', false)
-				$pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
+
 				$yearRect.style('opacity', 0);
 				$bgRect.style('opacity', 0)
 				$leftLine.style('opacity', 0);
@@ -348,6 +348,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$circle.classed('highlight', false);
 				d3.selectAll('.tick')
 					.classed('is-emphasized', false)
+
+				if (direction === "up") $pod.attr('transform', d => `translate(${d.data.x}, ${d.data.y})`).transition(2000).ease(d3.easeLinear);
 				return Chart;
 			},
 			// scatterTransition
