@@ -174,7 +174,8 @@ function handleToggle() {
 
 function handleDropdown() {
 	const value = this.options[this.selectedIndex].text;
-	const combinedName = value.replace(' ', '-')
+	let removeApostrophes = (value).replace("'", '')
+	let combinedName = (removeApostrophes).replace(' ', '-')
 
 	if (value == "All models"){
 
@@ -205,20 +206,20 @@ function handleDropdown() {
 				$modelImgs.classed('is-visible', false)
 				//$modelCircles.classed('is-visible', true)
 				//$modelCircles.classed('faded', true)
-				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true).raise()
 			}
 			else if ($switch.node().checked == false) {
 				//$modelImgs.classed('faded', true)
 				$modelImgs.classed('is-visible', true)
 				$modelCircles.classed('is-visible', false)
 				$modelImgs.classed('faded', true)
-				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true)
+				d3.selectAll(`.model-img-${combinedName}`).classed('highlight', true).raise()
 
 				//d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
 			}
 		}
 
-		else d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true)
+		else d3.selectAll(`.model-circle-${combinedName}`).classed('highlight', true).raise()
 
 	}
 
