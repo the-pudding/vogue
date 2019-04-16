@@ -94,7 +94,8 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 		        return `img-id-${splitz}`
 		      })
 		      .attr('class', function(d) {
-		        let combinedName = (d.data.model).replace(' ', '-')
+						let removeApostrophes = (d.data.model).replace("'", '')
+		        let combinedName = (removeApostrophes).replace(' ', '-')
 		        return `model-img model-img-${combinedName}`
 		      })
 		      .attr('clip-path', function(d) {
@@ -513,7 +514,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 				$faces.classed('highlight', false)
 				$faces.classed('faded', true)
 				$circle.classed('is-visible', false);
-				d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+				d3.selectAll(".model-img-Lupita-Nyongo").classed('highlight', true)
 
 					$beeswarmToggle.classed('is-visible', true);
 					d3.select('.switch input').classed('is-faces', true);
@@ -523,7 +524,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					$circle.classed('faded', false)
 					$faces.classed('highlight', false);
 					$faces.classed('faded', true);
-					d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
+					d3.selectAll(".model-img-Lupita-Nyongo").classed('highlight', true)
 				}
 				else {
 					$beeswarmToggle.classed('is-visible', false);
@@ -532,7 +533,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					$circle.classed('is-visible', true);
 					$circle.classed('highlight', false);
 					$circle.style('opacity', 0.3)
-					d3.selectAll('.model-circle-Lupita-Nyongo').style('opacity', 1)
+					d3.selectAll(".model-circle-Lupita-Nyongo").style('opacity', 1)
 				}
 
 				//d3.selectAll('.model-img-Lupita-Nyongo').classed('highlight', true)
