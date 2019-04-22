@@ -532,7 +532,7 @@ d3.selection.prototype.beeswarmChart = function init(options) {
 					$faces.classed('is-visible', false)
 					$circle.classed('is-visible', true);
 					$circle.classed('highlight', false);
-					$circle.style('opacity', 0.3)
+					$circle.classed('faded', false)
 					d3.selectAll(".model-circle-Lupita-Nyongo").style('opacity', 1)
 				}
 

@@ -101,7 +101,7 @@ function setupScroll() {
 	scroller
 		.setup({
 		  step: '.calculations .step',
-			offset: 0.7
+			offset: 0.7,
 		})
 		.onStepEnter(handleStepEnter);
 }

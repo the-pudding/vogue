@@ -108,9 +108,17 @@ function renderStep(index, direction) {
 		chart.showY();
 	}
 	if (index === 7) {
-		$modelImgs.classed('is-visible', true);
-		$modelImgs.classed('faded', false)
-		$modelCircles.classed('is-visible', false);
+		if (bodyWidth >= mobile){
+			$modelImgs.classed('is-visible', true);
+			$modelImgs.classed('faded', false)
+			$modelCircles.classed('is-visible', false);
+		}
+		else {
+			$modelImgs.classed('is-visible', false);
+			$modelImgs.classed('faded', false)
+			$modelCircles.classed('is-visible', true);
+		}
+
 	}
 }
 
@@ -138,7 +146,6 @@ function setupDropdown() {
 
 function handleToggle() {
 	//$switch.node().checked = !$switch.node().checked
-	console.log($switch.node().checked)
 	const value = $modelDropdown.node().options[$modelDropdown.node().selectedIndex].text;
 	const combinedName = value.replace(' ', '-')
 	const faces = $switch.classed('is-faces')
@@ -199,7 +206,6 @@ function handleDropdown() {
 		$modelCircles.classed('highlight', false)
 		$modelImgs.classed('faded', false)
 		$modelImgs.classed('highlight', false)
-		console.log($switch.node().checked)
 
 		if (bodyWidth >= mobile){
 			if ($switch.node().checked == true) {

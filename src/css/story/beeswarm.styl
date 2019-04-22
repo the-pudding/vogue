@@ -30,6 +30,7 @@
 				margin-left 0.5rem
 				height 1.5rem
 				width 10rem
+				font-size 16px
 
 			&.is-visible
 				display flex
@@ -126,17 +127,25 @@
 			display none
 			+mq('bp-3')
 				display block
-		.mobileOnly
+
+		.exploreDesktop
+			display none !important
+			+mq('bp-3')
+				display block !important
+
+		.mobileOnly, .exploreMobile
 			display block
 			+mq('bp-3')
 				display none
 
-		.explore
+		.exploreDesktop, .exploreMobile
 			font-family $national
 			set-type-size('small')
 			color $gray-dark
 			display block
 			margin-top 2rem
+
+
 
 .scroll-button
 	background-color rgba($gray-light, 0.3)
