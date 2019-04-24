@@ -1,4 +1,5 @@
 import scrollama from 'scrollama';
+
 const $section = d3.selectAll('.calculations')
 const $container = $section.selectAll('.calculations__container')
 const $cover = $container.selectAll('.calculations__container-cover')
@@ -13,88 +14,88 @@ const $steps = $scrollText.selectAll('.step')
 const scroller = scrollama();
 
 function showCover(){
-  $cover.classed('is-visible', true)
+	$cover.classed('is-visible', true)
 }
 
 function hideCover(){
-  $cover.classed('is-visible', false)
+	$cover.classed('is-visible', false)
 }
 
 function showFaces(type){
-  if (type === 'full') $facesFull.classed('is-visible', true)
-  if (type === 'crop') $facesCrop.classed('is-visible', true)
-  if (type === 'skin') $facesSkin.classed('is-visible', true)
+	if (type === 'full') $facesFull.classed('is-visible', true)
+	if (type === 'crop') $facesCrop.classed('is-visible', true)
+	if (type === 'skin') $facesSkin.classed('is-visible', true)
 }
 
 function hideFaces(type){
-  if (type === 'full') $facesFull.classed('is-visible', false)
-  if (type === 'crop') $facesCrop.classed('is-visible', false)
-  if (type === 'skin') $facesSkin.classed('is-visible', false)
+	if (type === 'full') $facesFull.classed('is-visible', false)
+	if (type === 'crop') $facesCrop.classed('is-visible', false)
+	if (type === 'skin') $facesSkin.classed('is-visible', false)
 }
 
 function facesOnCover(){
-  $facesFull.classed('on-cover', true)
+	$facesFull.classed('on-cover', true)
 }
 
 function facesOffCover(){
-  $facesFull.classed('on-cover', false)
+	$facesFull.classed('on-cover', false)
 }
 
 function emptyBackground(){
-  $onlyFaces.classed('filled', false)
-  $onlyFaces.classed('lightness', false)
+	$onlyFaces.classed('filled', false)
+	$onlyFaces.classed('lightness', false)
 }
 
 function fillBackground(){
-  $onlyFaces.classed('filled', true)
-  $onlyFaces.classed('lightness', false)
+	$onlyFaces.classed('filled', true)
+	$onlyFaces.classed('lightness', false)
 }
 
 function showLightness(){
-  $onlyFaces.classed('lightness', true)
+	$onlyFaces.classed('lightness', true)
 }
 
 function handleStepEnter(response){
-  const index = response.index
-  $steps.classed('is-active', (d, i) => i === index);
+	const {index} = response
+	$steps.classed('is-active', (d, i) => i === index);
 
-  if (index === 0) {
-    showCover()
-    facesOnCover()
-    hideFaces('full')
-    hideFaces('crop')
-    hideFaces('skin')
-    emptyBackground()
-  }
-  if (index === 1){
-    hideCover()
-    facesOffCover()
-    showFaces('full')
-    hideFaces('crop')
-    hideFaces('skin')
-    emptyBackground()
-  }
-  if (index === 2){
-    hideCover()
-    hideFaces('full')
-    hideFaces('crop')
-    showFaces('skin')
-    emptyBackground()
-  }
-  if (index === 3){
-    hideCover()
-    hideFaces('full')
-    hideFaces('crop')
-    hideFaces('skin')
-    fillBackground()
-  }
-  if (index === 4){
-    hideCover()
-    hideFaces('full')
-    hideFaces('crop')
-    hideFaces('skin')
-    showLightness()
-  }
+	if (index === 0) {
+		showCover()
+		facesOnCover()
+		hideFaces('full')
+		hideFaces('crop')
+		hideFaces('skin')
+		emptyBackground()
+	}
+	if (index === 1){
+		hideCover()
+		facesOffCover()
+		showFaces('full')
+		hideFaces('crop')
+		hideFaces('skin')
+		emptyBackground()
+	}
+	if (index === 2){
+		hideCover()
+		hideFaces('full')
+		hideFaces('crop')
+		showFaces('skin')
+		emptyBackground()
+	}
+	if (index === 3){
+		hideCover()
+		hideFaces('full')
+		hideFaces('crop')
+		hideFaces('skin')
+		fillBackground()
+	}
+	if (index === 4){
+		hideCover()
+		hideFaces('full')
+		hideFaces('crop')
+		hideFaces('skin')
+		showLightness()
+	}
 }
 
 function setupScroll() {
@@ -107,18 +108,17 @@ function setupScroll() {
 }
 
 function resize(){
-  const stepHeight = Math.floor(window.innerHeight)
-  console.log({$steps})
+	const stepHeight = Math.floor(window.innerHeight)
 
-  $steps
-    .style('height', `${stepHeight}px`)
+	$steps
+		.style('height', `${stepHeight}px`)
 
-  scroller.resize()
+	scroller.resize()
 }
 
 function init(){
-  setupScroll()
-  resize()
+	setupScroll()
+	resize()
 }
 
 export default {init, resize}
