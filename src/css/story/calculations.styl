@@ -77,8 +77,11 @@
     padding 1rem
 
     .step
+      z-index 1
     	margin 2rem auto
-    	opacity 0.2
+    	opacity 1
+      +mq('bp-4')
+        opacity 0.2
 
       &.is-active
         opacity 1

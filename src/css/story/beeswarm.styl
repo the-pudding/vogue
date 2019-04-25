@@ -165,8 +165,14 @@
 	padding-right 1.5rem
 	background-size 1rem 1rem
 
-.step.is-active
+.step
+	z-index 1
 	opacity 1
+	+mq('bp-4')
+		opacity 0.2
+
+	&.is-active
+		opacity 1
 
 .step.is-active.step-hidden, .step.step-hidden
 	opacity 0
